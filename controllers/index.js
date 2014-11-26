@@ -1,6 +1,9 @@
 var indexController = {
 	index: function(req, res) {
-		res.render('index');
+		res.redirect('/auth/login');
+	},
+	login: function(req, res) {
+		res.render('login');
 	}
 };
 

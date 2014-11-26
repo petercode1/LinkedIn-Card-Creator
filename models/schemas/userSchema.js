@@ -6,10 +6,15 @@ var userSchema = mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	LI_id: {
+	liID: {
 		type: String,
 		required: true,
 		unique: true,
+	},
+	customID: {
+		type: String,
+		required: true,
+		unique: true
 	},
 	token: {
 		type: String,
