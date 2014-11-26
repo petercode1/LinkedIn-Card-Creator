@@ -1,0 +1,77 @@
+extends layout
+
+block content
+
+	.content-container.content-container-top
+		//- .text-center
+		//- 	h3 Public Card URL
+		//- 	p.card-url http://localhost:9092/public/#{user.customID}/share
+
+		//----------- Card -------------
+		.card-container.inline-block
+			.card-nav.col-sm-2.col-xs-12.text-center.inline-block
+				ul.btn-list.list-unstyled
+					li: button.btn.btn-success.circle(extra-toggle="see-bio") Bio
+					li: button.btn.btn-danger.circle(extra-toggle="see-skill") Skill
+					li: button.btn.btn-warning.circle(extra-toggle="see-info") Info
+
+			
+			//----------- Bio -------------
+			.card-info-container.col-sm-10.col-xs-12.inline-block.row
+				img.user-picture.circle(src="#{user.profile.image}")
+				#user-bio.card-bio
+					.bio-text
+						span.header-lg.user-name #{user.profile.name} 
+						br
+						span.header-md.user-title #{user.profile.title}
+							
+				//- About the user
+				.card-body.inline-block
+					.user-about.text-center
+						span.header-sm About
+						p.user-description #{user.profile.about}
+					
+					//- List of skills
+					.user-skillset.text-center
+						span.header-sm Skills
+						ul.user-skills.list-unstyled.list-inline
+							li#skill-1.skill #{user.profile.skills[0]}
+							li#skill-2.skill #{user.profile.skills[1]}
+							li#skill-3.skill #{user.profile.skills[2]}
+							li#skill-4.skill #{user.profile.skills[3]}
+							li#skill-5.skill #{user.profile.skills[4]}
+
+					//----------- Contact -------------
+					.contact-container.text-center
+						p LinkedIn: 
+							a#user-linkedin(href='#{user.profile.publicURL}') #{user.profile.publicURL} 
+
+			
+		//--------- Dropdown -------------
+		.extra-container
+
+			//- Extra bio information
+			.extra.extra-bio
+				h3 More About Me
+				h4.extra-header Last Position
+				p#extra-bio-position.extra-text #{user.profile.extra.extraBio.positions}
+				h4.extra-header Connections
+				p#extra-bio-connections.extra-text #{user.profile.extra.extraBio.connections}
+			
+
+			//- List of extra skills
+			.extra.extra-skills
+				h3 More Skills
+				ul.user-skills.list-unstyled.list-inline
+					li#extra-skill-1 #{user.profile.extra.extraSkills[0]}
+					li#extra-skill-2 #{user.profile.extra.extraSkills[1]}
+					li#extra-skill-3 #{user.profile.extra.extraSkills[2]}
+					li#extra-skill-4 #{user.profile.extra.extraSkills[3]}
+					
+			//- Extra contact information
+			.extra.extra-info
+				h3 Information
+				h4.extra-header Industry
+				p#extra-info-industry.extra-text #{user.profile.extra.extraContact.industry}
+				h4.extra-header Location
+				p#extra-info-location.extra-text #{user.profile.extra.extraContact.location}		

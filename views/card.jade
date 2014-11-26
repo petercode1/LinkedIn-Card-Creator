@@ -1,0 +1,125 @@
+extends layout
+
+block content
+
+	.content-container
+		.text-center
+			h3 Public Card URL:
+			p.card-url http://cardlink.herokuapp.com/public/#{user.customID}/share
+			button.noshow.btn.btn-lg.btn-save(type="button") Save
+			button#post-linkin.btn.btn-default.btn-lg.btn-post.share.wide(type="button", data-toggle="modal", data-target="#share-modal") Post on LinkedIn
+			a.share(href="/public/#{user.customID}/share"): button.btn.btn-lg.share.btn-share(type="button") See Public/Print
+
+		//----------- Card -------------
+		.card-container.inline-block
+			.card-nav.col-sm-2.col-xs-12.text-center.inline-block
+				ul.btn-list.list-unstyled
+					li: button.btn.btn-success.circle(extra-toggle="see-bio") Bio
+					li: button.btn.btn-danger.circle(extra-toggle="see-skill") Skill
+					li: button.btn.btn-warning.circle(extra-toggle="see-info") Info
+
+			
+			//----------- Bio -------------
+			.card-info-container.col-sm-10.col-xs-12.inline-block.row
+				img.user-picture.circle(src="#{user.profile.image}")
+				#user-bio.card-bio(userID = "#{user.customID}")
+					.bio-text
+						span.header-lg.user-name.editable(contenteditable="true") #{user.profile.name} 
+						i.header-lg(contenteditable="false").btn-edit.fa.fa-pencil-square-o
+						//- .input-group.input-group-lg
+						input.user-name.noshow.header-lg.user-name-input.edit-input(type="text", name="user-name", placeholder="#{user.profile.name}")
+						br
+						span.header-md.user-title.editable(contenteditable="true") #{user.profile.title}
+						input.user-title.noshow.header-md.user-title-input.edit-input(type="text", name="user-title", placeholder="#{user.profile.title}")
+							
+							
+				.card-body.inline-block
+					.user-about.text-center
+						span.header-sm About
+						p.user-description.editable(contenteditable="true") #{user.profile.about}
+						textarea.noshow.user-description-input.edit-textarea(rows="4", name="user-description", style="resize:none", placeholder="EDIT HERE: (max 290 characters)")
+					.user-skillset.text-center
+						span.header-sm Skills
+						ul.editable.user-skills.list-unstyled.list-inline
+							li#skill-1.skill.editable(contenteditable="true") #{user.profile.skills[0]}
+							li#skill-2.skill.editable(contenteditable="true") #{user.profile.skills[1]}
+							li#skill-3.skill.editable(contenteditable="true") #{user.profile.skills[2]}
+							li#skill-4.skill.editable(contenteditable="true") #{user.profile.skills[3]}
+							li#skill-5.skill.editable(contenteditable="true") #{user.profile.skills[4]}
+
+						.noshow
+							input#skill1-input.noshow.skill.skill-input.edit-input(type="text", name="user-skill1", placeholder="#{user.profile.skills[0]}")
+							input#skill2-input.noshow.skill.skill-input.edit-input(type="text", name="user-skill2", placeholder="#{user.profile.skills[1]}")
+							input#skill3-input.noshow.skill.skill-input.edit-input(type="text", name="user-skill3", placeholder="#{user.profile.skills[2]}")
+							input#skill4-input.noshow.skill.skill-input.edit-input(type="text", name="user-skill4", placeholder="#{user.profile.skills[3]}")
+							input#skill5-input.noshow.skill.skill-input.edit-input(type="text", name="user-skill5", placeholder="#{user.profile.skills[4]}")
+				
+
+					//----------- Contact -------------
+					.contact-container.text-center
+						p LinkedIn: 
+							a#user-linkedin(href='#{user.profile.publicURL}') #{user.profile.publicURL} 
+
+		//--------- Modal -------------
+		#share-modal.modal.fade(tabindex="-1", aria-hidden="true", role="dialog")
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(type="button", data-dismiss="modal", aria-label="Close") X
+						h4.modal-title.text-center Post Message
+					.modal-body
+						.row
+							aside.col-sm-5.share-to-container
+								.friend-list
+									button.btn.btn-success.btn-lg.wide.post-wall(liID="wall", userID="#{user.liID") My profile
+									.btn-group-vertical.wide(role="group")
+										h5.text-center Scroll to Select Connection
+										for connection in user.connections
+											button.connection.btn.btn-default(liID="#{connection.liID}") #{connection.name}
+							.col-sm-7
+								h5.text-center Subject
+								textarea#url-post-subject.wide(rows="1", style="resize: none").
+									My LinkedIn Card from CardLink
+								h5.text-center Message
+								textarea#url-post-content.wide(rows="8", style="resize: none").
+									Public URL:
+									http://cardlink.herokuapp.com/public/#{user.customID}/share
+					.modal-footer
+						button.btn.btn-danger(type="button", data-dismiss="modal") Cancel
+						button#url-post.btn.btn-post.btn-default(type="button") Post
+
+
+
+		//--------- Dropdown -------------
+		.extra-container
+			.extra.extra-bio
+				h3 More About Me
+				h4.extra-header Last Position
+				p#extra-bio-position.extra-text.editable(contenteditable="true") #{user.profile.extra.extraBio.positions}
+				textarea#user-extra-position-input.noshow.edit-textarea(rows="3", name="user-extra-bio", style="resize:none", placeholder="EDIT INFO HERE: (max 45 characters)")
+				h4.extra-header Connections
+				p#extra-bio-connections.extra-text.editable(contenteditable="true") #{user.profile.extra.extraBio.connections}
+				textarea#user-extra-connections-input.noshow.edit-textarea(rows="3", name="user-extra-bio", style="resize:none", placeholder="EDIT INFO HERE: (max 5 characters)")
+			
+			.extra.extra-skills
+				h3 More Skills
+				ul.editable.user-skills.list-unstyled.list-inline
+					li#extra-skill-1.editable(contenteditable="true") #{user.profile.extra.extraSkills[0]}
+					li#extra-skill-2.editable(contenteditable="true") #{user.profile.extra.extraSkills[1]}
+					li#extra-skill-3.editable(contenteditable="true") #{user.profile.extra.extraSkills[2]}
+					li#extra-skill-4.editable(contenteditable="true") #{user.profile.extra.extraSkills[3]}
+					
+				input#extra-skill1-input.user-extra-skills.noshow.skill.skill-input.edit-input(type="text", name="user-skill1", placeholder="#{user.profile.extra.extraSkills[0]}")
+				input#extra-skill2-input.user-extra-skills.noshow.skill.skill-input.edit-input(type="text", name="user-skill2", placeholder="#{user.profile.extra.extraSkills[1]}")
+				input#extra-skill3-input.user-extra-skills.noshow.skill.skill-input.edit-input(type="text", name="user-skill3", placeholder="#{user.profile.extra.extraSkills[2]}")
+				input#extra-skill4-input.user-extra-skills.noshow.skill.skill-input.edit-input(type="text", name="user-skill4", placeholder="#{user.profile.extra.extraSkills[3]}")
+				
+			.extra.extra-info
+				h3 Information
+				h4.extra-header Industry
+				p#extra-info-industry.extra-text.editable(contenteditable="true") #{user.profile.extra.extraContact.industry}
+				textarea#user-extra-industry-input.noshow.edit-textarea(rows="3", name="user-extra-contact", style="resize:none", placeholder="EDIT INFO HERE: (max 20 characters)")
+				h4.extra-header Location
+				p#extra-info-location.extra-text.editable(contenteditable="true") #{user.profile.extra.extraContact.location}
+				textarea#user-extra-location-input.noshow.edit-textarea(rows="3", name="user-extra-contact", style="resize:none", placeholder="EDIT INFO HERE: (max 20 characters)")
+		
