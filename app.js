@@ -67,7 +67,9 @@ app.get('/auth/linkedincallback',
 app.use(passportConfig.ensureAuthent);
 
 
-app.get('/profile/:userID', profileController.getProfile);
+app.get('/profile/base/:userID', profileController.getProfile);
+
+app.get('/profile/getInfo', profileController.getInfo);
 
 var server = app.listen(9092, function() {
 	console.log('Express server listening on port ' + server.address().port);

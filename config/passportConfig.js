@@ -15,7 +15,7 @@ passport.deserializeUser(function(obj, done) {
 	// 	done(err, user);
 	// });
 	done(null, obj);
-})
+});
 
 
 // Loggin in with LinkedIn
@@ -30,7 +30,7 @@ function(token, secretToken, profile, done){
 
 	// console.log('LinkedIn Profile', profile);
 	
-		console.log('LinkedIn Response', profile);
+		// console.log('LinkedIn Response', profile);
 //*	// Check for users in Data Base
 	User.findOne({liID: profile.id}, function(err, user) {
 
@@ -50,13 +50,13 @@ function(token, secretToken, profile, done){
 				token: token
 			});
 
-			newUser.save(function(err, user) {;
+			newUser.save(function(err, user) {
 				return done(err, user);
 			});
 		}
 		else {
 
-			console.log('User', user);
+			// console.log('User', user);
 			user.token = token;
 			user.markModified('token');
 			user.save(function(err, user){
@@ -64,9 +64,9 @@ function(token, secretToken, profile, done){
 					console.log('Save error', err);
 				}
 			return done(null, user);
-			})
+			});
 		}
-	})
+	});
 //*/
 }));
 

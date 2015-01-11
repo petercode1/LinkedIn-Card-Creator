@@ -1,0 +1,63 @@
+doctype html
+html(lang='en')
+	head
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+		link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css")
+		link(rel="stylesheet", href="/card.css")
+		meta(charset="utf-8")
+		title CardLink
+
+	body
+		block content
+			.content-container
+				.card-container
+					.card-nav.col-sm-2.inline-block
+						ul.btn-list.list-unstyled
+							li: button#see-bio.btn.btn-success.circle Bio
+							li: button#see-skill.btn.btn-danger.circle Skill
+							li: button#see-info.btn.btn-warning.circle Info
+					.card-info.col-sm-10.inline-block.row
+						.card-bio.inline-block.row
+							.col-sm-3
+								img.user-picture.circle(src="#{user.pictureUrl}")
+							.col-sm-9.bio-text
+								h2 #{user.firstName} #{user.lastName} 
+									small: i.btn-edit.fa.fa-pencil-square-o
+								h2: small.user-title #{user.headline}
+							//- .row
+							//- 	.col-sm-6
+									
+							//- 	.col-sm-6.text-left
+									
+									p.user-location #{user.location.name}
+							//- .page-header
+						.card-body.inline-block.text-center
+							.user-description.text-center
+								h4.sub-header About
+								p  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quibusdam sequi, eligendi corrupti consectetur in, iusto animi optio deleniti ab impedit aspernatur sit aperiam qui natus nostrum sint dicta, id.
+							h4.user-skills Skills
+							ul.list-unstyled.list-inline
+								li JavaScript
+								li HTML
+								li Coolness
+								li Winning
+								li Web Stuff
+						.page-header
+						.card-footer.text-center
+							p LinkedIn: 
+								a(href='#{user.apiStandardProfileRequest.url}') #{user.apiStandardProfileRequest.url}
+				.extra-container
+					.extra.extra-bio
+						h4.extra-header More About Me
+						p.extra-text Here is some more information about how awesome I am
+					.extra.extra-skills
+						h4.extra-header Skillset
+						p.extra-text Here is some more information about how awesome I am
+					.extra.extra-info
+						h4.extra-header Contact Information
+						p.extra-text Here is some more information about how awesome I am
+
+		script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+		script(src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js")
+		script(src="/cardActions.js")
+		
