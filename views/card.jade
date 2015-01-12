@@ -10,14 +10,13 @@ html(lang='en')
 	body
 		block content
 
-
 			.content-container
 				.text-center
-					button.btn.btn-success.btn-save Save
+					button.btn.btn-success.btn-lg.btn-save Save
 
 				//----------- Card -------------
-				.card-container
-					.card-nav.col-sm-2.inline-block
+				.card-container.inline-block
+					.card-nav.col-sm-2.col-xs-12.text-center.inline-block
 						ul.btn-list.list-unstyled
 							li: button#see-bio.btn.btn-success.circle Bio
 							li: button#see-skill.btn.btn-danger.circle Skill
@@ -26,17 +25,17 @@ html(lang='en')
 					
 					//----------- Bio -------------
 					.card-info.col-sm-10.inline-block.row
-						.card-bio.inline-block.row
-							.col-sm-3
-								img.user-picture.circle(src="#{user.pictureUrl}")
-							.col-sm-9
-								.bio-text
-									span.header-lg.user-name.editable(contenteditable="true") #{user.firstName} #{user.lastName} 
-										i(contenteditable="false").btn-edit.fa.fa-pencil-square-o
-									//- .input-group.input-group-lg
-									input.write.header-lg.user-name-input(type="text", name="user-name", value="#{user.firstName} #{user.lastName}")
-									span.header-md.user-title.editable #{user.headline}
-									input.write.header-md.user-title-input(type="text", name="user-title", value="#{user.headline}")
+						img.user-picture.circle(src="#{user.pictureUrl}")
+						.card-bio.inline-blok.rw
+							//- .col-sm-3.col-xs-2
+							//- .col-sm-9.col-xs-10
+							.bio-text
+								span.header-lg.user-name.editable(contenteditable="true") #{user.firstName} #{user.lastName} 
+									i(contenteditable="false").btn-edit.fa.fa-pencil-square-o
+								//- .input-group.input-group-lg
+								input.write.header-lg.user-name-input(type="text", name="user-name", value="#{user.firstName} #{user.lastName}")
+								span.header-md.user-title.editable #{user.headline}
+								input.write.header-md.user-title-input(type="text", name="user-title", value="#{user.headline}")
 							//- .row
 							//- 	.col-sm-6
 									
@@ -66,7 +65,7 @@ html(lang='en')
 						
 
 							//----------- Contact -------------
-							.card-footer.text-center
+							.contact-container.text-center
 								p LinkedIn: 
 									a(href='#{user.apiStandardProfileRequest.url}') #{user.apiStandardProfileRequest.url} 
 									strong.phone.editable(contenteditable="true") Phone: (555-123-4567)
