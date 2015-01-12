@@ -2,11 +2,48 @@ body {
 	background-color: #FCFFEE;
 }
 
+textarea {
+	width: 100%;
+}
+
+.write {
+	display: none;
+	background-color: #FCFFEE;
+	border-radius: .35em;
+}
+
+.skill {
+	font-size: .8em;
+}
+
+.card-bio .write {
+	width: 100%;
+	height: 1.5em;
+	/*font-size: 2em;*/
+	padding: .2em;
+	margin-bottom: 2px;
+}
+
+.user-name-input {
+	/*font-size: 2em;*/
+	/*font-weight: bold;*/
+}
+
+
+.card-footer {
+	font-size: .8em;
+	border-top: 1px solid #000;
+}
+
+.user-title-input {
+	/*font-size: 1.4em;*/
+}
 
 .content-container {
 	margin: 10% auto;
 	display: table;
 }
+
 
 .card-container {
 	background-color: #FFF;
@@ -17,17 +54,25 @@ body {
 	
 	border: 4px solid #000;
 	border-radius: 2%;
-	
-	
+}
 
-	/*position: static;*/
+
+.btn-save {
+	margin-bottom: 1em;
 }
 
 .centered {
 	margin: auto;
 }
 
+.phone {
+	font-style: italic;
+	float: right;
+}
 
+.skill-input {
+	width: 20%;
+}
 
 .user-picture {
 	max-height: 120px;
@@ -35,15 +80,51 @@ body {
 	margin-top: 3px;
 }
 
+.header-lg {
+	font-size: 2em;
+	font-weight: 400;
+}
+
+.header-md {
+	font-size: 1.5em;
+	font-weight: 300;
+}
+
+.header-sm {
+	font-size: 1.2em;
+	font-weight: 300;
+	color: #999;
+}
+
+.user-name {
+	margin-left: 0;
+	margin-right: .20em;
+}
+
+.user-title {
+	margin-left: .25em;
+	margin-right: .20em;
+}
+
 .circle {
 	border-radius: 50%;	
 }
 
+.btn-edit {
+	float: right;
+}
 .card-nav {
 	background-color: #779;
 	/*position: fixed;*/
 	height: 100%;
 	/*float: left;*/
+}
+
+@media screen and (max-width:768px) {
+	.card-nav {
+		height: 80px;
+		width: 100%;
+	}
 }
 
 .card-info {
@@ -57,13 +138,26 @@ body {
 
 .bio-text {
 	border-bottom: 2px solid #999;
-	padding-left: 7%;
+	padding-left: 1%;
+	margin-left: 2%;
+	margin-top: 1em;
+}
+
+/*------ BODY ------*/
+
+.card-body {
+	width: 100%;
+	position: relative;
+	top: -2em;
+
 }
 
 .card-back {
 	height: 100%;
 }
 
+
+/**/
 .inline-block {
 	display: inline-block;
 }
@@ -106,3 +200,4 @@ body {
 	border: 2px solid #000;
 	text-align: center;
 }
+
