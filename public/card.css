@@ -136,12 +136,13 @@ body {
 
 
 
-
-
-
-
 .write {
 	display: none;
+}
+
+
+
+input.write, textarea.write {
 	background-color: #FCFFEE;
 	border-radius: .35em;
 }
@@ -157,9 +158,18 @@ body {
 
 
 
-.btn-save {
+.btn-save, .btn-share {
 	margin-bottom: 1em;
 	width: 100%;
+	color: #FFF;
+}
+
+.btn-save {
+	background-color: #A60E22;
+}
+
+.btn-share {
+	background-color: #6699FF;
 }
 
 
@@ -311,11 +321,25 @@ body {
 
 
 .extra {
-	background-color: #CCC;
 	display: none;
 	margin: 1em auto;
 	border: 2px solid #000;
+	border-radius: 2%;
 	text-align: center;
+}
+
+
+.extra-bio {
+	background-color: #5cb85c;
+	/*#90EAA0;*/
+}
+
+.extra-skills {
+	background-color: #d9534f;
+}
+
+.extra-info {
+	background-color: #f0ad4e;
 }
 
 .extra textarea {

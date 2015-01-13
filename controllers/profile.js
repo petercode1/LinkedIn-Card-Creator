@@ -1,3 +1,4 @@
+var User = require('../models/schemas/userSchema.js');
 var keys = require('../accessKeys.js');
 var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://localhost:9092/auth/linkedincallback');
 
@@ -24,6 +25,24 @@ var profileController = {
 			console.log('IN Rsult', liResult);
 			
 		});
+	},
+	updateProfile: function (req, res) {
+		User.findOne({customID: req.user.customID}, function(err, user) {
+			if (err) {
+				console.log("Update Error", err);
+				return done(err);
+			}
+			user.markModified('profile');
+			user.save(function(err, user) {
+				if (err) {
+					console.log("Save error", err);
+					return done(err);
+				}	
+			});
+		});
+	},
+	share: function(req, res) {
+		res.redirect('/profile:' + req.user.customID + '/share');
 	}
 };
 

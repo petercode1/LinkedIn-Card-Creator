@@ -13,6 +13,7 @@ var passportConfig = require('./config/passportConfig.js');
 var authentController = require('./controllers/authentication.js');
 var indexController = require('./controllers/index.js');
 var profileController = require('./controllers/profile.js');
+var publicController = require('./controllers/publicController.js');
 
 
 // Connect to database
@@ -61,7 +62,8 @@ app.get('/auth/linkedincallback',
 /*------------------------- End LinkedIn Login -------------------------*/
 
 
-
+app.get('/public/:profile/share', publicController.publicProfile);
+app.get('/public/generatePublic', publicController.generatePublic);
 
 // Prevent un-signed-in navigation
 app.use(passportConfig.ensureAuthent);
@@ -70,6 +72,8 @@ app.use(passportConfig.ensureAuthent);
 app.get('/profile/base/:userID', profileController.getProfile);
 
 app.get('/profile/getInfo', profileController.getInfo);
+
+app.get('/profile/updateProfile', profileController.updateProfile);
 
 var server = app.listen(9092, function() {
 	console.log('Express server listening on port ' + server.address().port);

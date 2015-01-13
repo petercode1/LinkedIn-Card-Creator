@@ -12,7 +12,8 @@ html(lang='en')
 
 			.content-container
 				.text-center
-					button.btn.btn-success.btn-lg.btn-save Save
+					button.write.btn.btn-lg.btn-save Save
+					button.btn.btn-lg.btn-share.editable Share/Print
 
 				//----------- Card -------------
 				.card-container.inline-block
@@ -33,9 +34,9 @@ html(lang='en')
 								span.header-lg.user-name.editable(contenteditable="true") #{user.firstName} #{user.lastName} 
 									i(contenteditable="false").btn-edit.fa.fa-pencil-square-o
 								//- .input-group.input-group-lg
-								input.user-name.write.header-lg.user-name-input(type="text", name="user-name", value="#{user.firstName} #{user.lastName}")
+								input.user-name.write.header-lg.user-name-input(type="text", name="user-name", placeholder="#{user.firstName} #{user.lastName}")
 								span.header-md.user-title.editable(contenteditable="true") #{user.headline}
-								input.user-title.write.header-md.user-title-input(type="text", name="user-title", value="#{user.headline}")
+								input.user-title.write.header-md.user-title-input(type="text", name="user-title", placeholder="#{user.headline}")
 							//- .row
 							//- 	.col-sm-6
 									
@@ -51,44 +52,44 @@ html(lang='en')
 							.user-skillset.text-center
 								span.header-sm Skills
 								ul.editable.user-skills.list-unstyled.list-inline
-									li.editable.skill(contenteditable="true") JavaScript
-									li.editable.skill(contenteditable="true") HTML
-									li.editable.skill(contenteditable="true") Coolness
-									li.editable.skill(contenteditable="true") Winning
-									li.editable.skill(contenteditable="true") Web Stuff
+									li#skill-1.skill.editable(contenteditable="true") JavaScript
+									li#skill-2.skill.editable(contenteditable="true") HTML
+									li#skill-3.skill.editable(contenteditable="true") Coolness
+									li#skill-4.skill.editable(contenteditable="true") Winning
+									li#skill-5.skill.editable(contenteditable="true") Web Stuff
 
 								.write
-									input.write.skill.skill-input(type="text", name="user-skill1", value="JavaScript")
-									input.write.skill.skill-input(type="text", name="user-skill2", value="JavaScript")
-									input.write.skill.skill-input(type="text", name="user-skill3", value="JavaScript")
-									input.write.skill.skill-input(type="text", name="user-skill4", value="JavaScript")
-									input.write.skill.skill-input(type="text", name="user-skill5", value="JavaScript")
+									input#skill1-input.write.skill.skill-input(type="text", name="user-skill1", placeholder="JavaScript")
+									input#skill2-input.write.skill.skill-input(type="text", name="user-skill2", placeholder="JavaScript")
+									input#skill3-input.write.skill.skill-input(type="text", name="user-skill3", placeholder="JavaScript")
+									input#skill4-input.write.skill.skill-input(type="text", name="user-skill4", placeholder="JavaScript")
+									input#skill5-input.write.skill.skill-input(type="text", name="user-skill5", placeholder="JavaScript")
 						
 
 							//----------- Contact -------------
 							.contact-container.text-center
 								p LinkedIn: 
 									a(href='#{user.apiStandardProfileRequest.url}') #{user.apiStandardProfileRequest.url} 
-									strong.phone.editable(contenteditable="true") Phone: (555-123-4567)
-									input.write.phone.phone-input.pull-right(type="text", name="user-phone", value="(Phone:)")
+									strong.user-phone.editable(contenteditable="true") Phone: (555-123-4567)
+									input.write.user-phone.user-phone-input.pull-right(type="text", name="user-phone", placeholder="(Phone:)")
 
 					
 				//--------- Dropdown -------------
 				.extra-container
 					.extra.extra-bio
 						h4.extra-header More About Me
-						p.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
-						textarea.write.user-extra-bio-input(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
+						p#extra-bio.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
+						textarea#user-extra-bio-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
 					
 					.extra.extra-skills
 						h4.extra-header Skillset
-						p.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
-						textarea.write.user-extra-bio-input(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
+						p#extra-skills.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
+						textarea#user-extra-skills-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
 					
 					.extra.extra-info
 						h4.extra-header Contact Information
-						p.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
-						textarea.write.user-extra-bio-input(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
+						p#extra-info.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
+						textarea#user-extra-info-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
 				
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js")

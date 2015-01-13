@@ -2,9 +2,17 @@ var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
 	profile: {
-		type: Object,
-		required: true,
-		unique: true
+		image: String,
+		name: String,
+		title: String,
+		about: String,
+		skills: Array,
+		extra: {
+			extraSkills: String,
+			extraBio: String,
+			extraContact: String
+		}
+
 	},
 	liID: {
 		type: String,
