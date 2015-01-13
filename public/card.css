@@ -7,11 +7,6 @@ body {
 	background-color: #FCFFEE;
 }
 
-textarea {
-	width: 100%;
-}
-
-
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
 					CONTAINERS
@@ -21,8 +16,7 @@ textarea {
 	margin: 10% auto;
 	display: table;
 	min-height: 50em;
-	/*width: 40em;*/
-	/*width: 100%;*/
+	min-width: 396px;
 }
 
 
@@ -31,6 +25,7 @@ textarea {
 	position: relative;
 	/*height: 300px;*/
 	max-height: none;
+	min-height: 300px;
 	/*display: inline-block;*/
 
 	max-width: 40em;
@@ -43,10 +38,6 @@ textarea {
 	.card-container {
 		max-width: none;
 		width: 100%;
-	}
-
-	.content-container {
-		/*margin: 0;*/
 	}
 }
 
@@ -67,15 +58,20 @@ textarea {
 
 
 /*------------------ Bio ------------------*/
-.card-bio {
-	/*margin-left: 1px;*/
-}
 
 .bio-text {
 	border-bottom: 2px solid #999;
+	overflow: hidden;
 	padding-left: 1%;
 	margin-left: 2%;
 	margin-top: 1em;
+}
+
+.user-picture {
+	max-height: 110px;
+	border: 3px solid #88D;
+	margin: 3px;
+	float: left;
 }
 
 .user-name {
@@ -88,35 +84,23 @@ textarea {
 	margin-right: .20em;
 }
 
-.user-picture {
-	max-height: 110px;
-	border: 3px solid #88D;
-	margin: 3px;
-	float: left;
-}
 
 
 .user-about {
 	max-height: 110px;
+	width: 100%;
 }
+
+
+
+
 /*_________Edit Section_________*/
 
 
 .card-bio .write {
-	width: 100%;
 	height: 1.5em;
-	/*font-size: 2em;*/
 	padding: .2em;
 	margin-bottom: 2px;
-}
-
-.user-title-input {
-	/*font-size: 1.4em;*/
-}
-
-.user-name-input {
-	/*font-size: 2em;*/
-	/*font-weight: bold;*/
 }
 
 
@@ -125,7 +109,6 @@ textarea {
 
 .card-body {
 	width: 100%;
-	position: relative;
 	top: -1.5em;
 
 }
@@ -133,7 +116,6 @@ textarea {
 @media screen and (max-width: 768px){
 	.card-body {
 		top: 0;
-		/*overflow: hidden;*/
 	}
 
 	.user-about {
@@ -141,6 +123,23 @@ textarea {
 		margin-bottom: 1em;
 	}
 }
+
+
+
+.user-description-input {
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
 .write {
 	display: none;
 	background-color: #FCFFEE;
@@ -170,6 +169,10 @@ textarea {
 	float: right;
 }
 
+.phone-input {
+	width: 20%;
+
+}
 
 /*_________Edit Section_________*/
 
@@ -244,8 +247,7 @@ textarea {
 .card-nav {
 	background-color: #779;
 	position: absolute;
-	height: inhert;
-	/*float: left;*/
+	height: 100%;
 }
 
 
@@ -254,15 +256,15 @@ textarea {
 	margin: 8px auto;
 }
 
-@media screen and (min-width:768px) {
+@media screen and (max-width:768px) {
 	.card-nav {
-		height: 100%;
-		/*width: 100%;*/
+		position: relative;
+		padding: 0;
 	}
 
 	.btn-list {
-		margin-top: 10%;
-		margin-bottom: 0;
+		margin: 1% 0;
+		padding: 0;
 	}
 }
 
@@ -278,13 +280,12 @@ textarea {
 
 @media screen and (max-width:768px) {
 	.btn-list li {
-		display: inline;
-		/*table-column;*/
-		/*padding: 0 10%;*/
+		display: inline-block;
+		padding: 1px 10%;
 	}
 
 	.btn-list {
-		display: table;
+		width: 100%;
 	}
 }
 
@@ -296,8 +297,10 @@ textarea {
 }
 
 @media screen and (max-width:768px) {
+	
+
 	.card-info {
-		margin: 5em 0 0 0;
+		margin: 0;
 	}
 }
 
@@ -313,5 +316,9 @@ textarea {
 	margin: 1em auto;
 	border: 2px solid #000;
 	text-align: center;
+}
+
+.extra textarea {
+	width: 100%;
 }
 

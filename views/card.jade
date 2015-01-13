@@ -26,16 +26,16 @@ html(lang='en')
 					//----------- Bio -------------
 					.card-info.col-sm-10.inline-block.row
 						img.user-picture.circle(src="#{user.pictureUrl}")
-						.card-bio.inline-blok.rw
+						.card-bio
 							//- .col-sm-3.col-xs-2
 							//- .col-sm-9.col-xs-10
 							.bio-text
 								span.header-lg.user-name.editable(contenteditable="true") #{user.firstName} #{user.lastName} 
 									i(contenteditable="false").btn-edit.fa.fa-pencil-square-o
 								//- .input-group.input-group-lg
-								input.write.header-lg.user-name-input(type="text", name="user-name", value="#{user.firstName} #{user.lastName}")
-								span.header-md.user-title.editable #{user.headline}
-								input.write.header-md.user-title-input(type="text", name="user-title", value="#{user.headline}")
+								input.user-name.write.header-lg.user-name-input(type="text", name="user-name", value="#{user.firstName} #{user.lastName}")
+								span.header-md.user-title.editable(contenteditable="true") #{user.headline}
+								input.user-title.write.header-md.user-title-input(type="text", name="user-title", value="#{user.headline}")
 							//- .row
 							//- 	.col-sm-6
 									
@@ -49,19 +49,20 @@ html(lang='en')
 								p.user-description.editable(contenteditable="true") Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis temporibus quas ex eligendi repellendus reprehenderit sunt sit laboriosam hic sequi libero, veniam dolore illum provident dignissimos impedit reiciendis. Blanditiis, adipisci.
 								textarea.write.user-description-input(rows="4", name="user-description", style="resize:none", placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis temporibus quas ex eligendi repellendus reprehenderit sunt sit laboriosam hic sequi libero, veniam dolore illum provident dignissimos impedit reiciendis. Blanditiis, adipisci.")
 							.user-skillset.text-center
-								span.header-sm.user-skills Skills
-								ul.editablelist-unstyled.list-inline
+								span.header-sm Skills
+								ul.editable.user-skills.list-unstyled.list-inline
 									li.editable.skill(contenteditable="true") JavaScript
 									li.editable.skill(contenteditable="true") HTML
 									li.editable.skill(contenteditable="true") Coolness
 									li.editable.skill(contenteditable="true") Winning
 									li.editable.skill(contenteditable="true") Web Stuff
 
-								input.write.skill.skill-input(type="text", name="user-skill1", value="JavaScript")
-								input.write.skill.skill-input(type="text", name="user-skill2", value="JavaScript")
-								input.write.skill.skill-input(type="text", name="user-skill3", value="JavaScript")
-								input.write.skill.skill-input(type="text", name="user-skill4", value="JavaScript")
-								input.write.skill.skill-input(type="text", name="user-skill5", value="JavaScript")
+								.write
+									input.write.skill.skill-input(type="text", name="user-skill1", value="JavaScript")
+									input.write.skill.skill-input(type="text", name="user-skill2", value="JavaScript")
+									input.write.skill.skill-input(type="text", name="user-skill3", value="JavaScript")
+									input.write.skill.skill-input(type="text", name="user-skill4", value="JavaScript")
+									input.write.skill.skill-input(type="text", name="user-skill5", value="JavaScript")
 						
 
 							//----------- Contact -------------
@@ -69,7 +70,7 @@ html(lang='en')
 								p LinkedIn: 
 									a(href='#{user.apiStandardProfileRequest.url}') #{user.apiStandardProfileRequest.url} 
 									strong.phone.editable(contenteditable="true") Phone: (555-123-4567)
-									input.write.skill.skill-input.pull-right(type="text", name="user-phone", value="(Phone:)")
+									input.write.phone.phone-input.pull-right(type="text", name="user-phone", value="(Phone:)")
 
 					
 				//--------- Dropdown -------------
