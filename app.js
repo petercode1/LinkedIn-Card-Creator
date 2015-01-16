@@ -43,21 +43,22 @@ app.get('/auth/sign-in', authentController.signIn);
 
 
 /*+++++++++++++++++++++++++++ LinkedIn Login +++++++++++++++++++++++++++*/
-app.get('/auth/linkedin',
+app.get('/auth/linkedin', authentController.URLsignIN);
 
-	passport.authenticate(
-		'linkedin',
-		{scope: ['r_fullprofile', 'r_basicprofile']}
-	),
-	function(req, res) {
-	// This funciton is not called
-	}
-);
+// 	passport.authenticate(
+// 		'linkedin',
+// 		{scope: ['r_fullprofile', 'r_basicprofile']}
+// 	),
+// 	function(req, res) {
+// 	// This funciton is not called
+// 	}
+// );
 
-app.get('/auth/linkedincallback',
-	passport.authenticate('linkedin', {failureRedirect: '/auth/login'}),
-	authentController.passLogin
-);
+app.get('/auth/linkedincallback', authentController.requestToken);
+
+// 	passport.authenticate('linkedin', {failureRedirect: '/auth/login'}),
+// 	authentController.passLogin
+// );
 
 /*------------------------- End LinkedIn Login -------------------------*/
 
@@ -69,9 +70,10 @@ app.get('/public/generatePublic', publicController.generatePublic);
 app.use(passportConfig.ensureAuthent);
 
 
-app.get('/profile/base/:userID', profileController.getProfile);
 
-app.get('/profile/getInfo', profileController.getInfo);
+app.get('/profile/base/:userID', profileController.createCard);
+
+// app.get('/profile/getInfo', profileController.getInfo);
 
 app.get('/profile/updateProfile', profileController.updateProfile);
 

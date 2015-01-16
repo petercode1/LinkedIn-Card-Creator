@@ -24,7 +24,12 @@ passport.use(new LinkedInStrategy({
 	consumerSecret: keys.consumerSecret,
 	callbackURL: 'http://localhost:9092/auth/linkedincallback'
 },
-function(token, secretToken, profile, done){
+function(token, tokenSecret, profile, done){
+
+	console.log("Token", token);
+	console.log("DONE", done);
+	console.log("Secret Token", secretToken);
+	console.log("Authen Profile", profile);
 
 	var randomNum = Math.floor(Math.random() * (10 - 0));
 

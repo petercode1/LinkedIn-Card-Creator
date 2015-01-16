@@ -7,10 +7,11 @@ var userSchema = mongoose.Schema({
 		title: String,
 		about: String,
 		skills: Array,
+		publicURL: String,
 		extra: {
-			extraSkills: String,
-			extraBio: String,
-			extraContact: String
+			extraBio: Object,
+			extraSkills: Array,
+			extraContact: Object
 		}
 
 	},
@@ -24,11 +25,11 @@ var userSchema = mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	token: {
-		type: String,
-		required: true,
-		unique: true
-	}
+	// token: {
+	// 	type: String,
+	// 	required: true,
+	// 	unique: true
+	// }
 });
 
 module.exports = mongoose.model('user', userSchema);

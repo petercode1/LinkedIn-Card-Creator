@@ -3,9 +3,19 @@ html(lang='en')
 	head
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
 		meta(charset="utf-8")
-		script(type="text/javascript", src="https://platform.linkedin.com/in.js").
-			api_key: 78vliq35t58zew
-			authorize: true;
+		//- script(type="text/javascript", src="https://platform.linkedin.com/in.js").
+			| api_key: 78vliq35t58zew;
+			| authorize: true;
+			| onLoad: sendProfile;
+		//- script(type="text/javascript")
+			| function getProfileData() {
+			|	IN.API.Profile("me").result(displayProfiles);
+			|	}
+			| function displayProfiles(profiles) {
+			|	member = profiles.values[0];
+			|	console.log("Member", member);
+			|	document.getElementById("profiles").innerHTML = "<p>member</p>"
+			|	}
 		title CardLink
 
 	body

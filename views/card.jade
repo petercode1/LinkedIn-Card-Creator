@@ -48,7 +48,7 @@ html(lang='en')
 							.user-about.text-center
 								span.header-sm About
 								p.user-description.editable(contenteditable="true") Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis temporibus quas ex eligendi repellendus reprehenderit sunt sit laboriosam hic sequi libero, veniam dolore illum provident dignissimos impedit reiciendis. Blanditiis, adipisci.
-								textarea.write.user-description-input(rows="4", name="user-description", style="resize:none", placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis temporibus quas ex eligendi repellendus reprehenderit sunt sit laboriosam hic sequi libero, veniam dolore illum provident dignissimos impedit reiciendis. Blanditiis, adipisci.")
+								textarea.write.user-description-input(rows="4", name="user-description", style="resize:none", placeholder="EDIT HERE: (max 290 characters)")
 							.user-skillset.text-center
 								span.header-sm Skills
 								ul.editable.user-skills.list-unstyled.list-inline
@@ -70,26 +70,36 @@ html(lang='en')
 							.contact-container.text-center
 								p LinkedIn: 
 									a(href='#{user.apiStandardProfileRequest.url}') #{user.apiStandardProfileRequest.url} 
-									strong.user-phone.editable(contenteditable="true") Phone: (555-123-4567)
-									input.write.user-phone.user-phone-input.pull-right(type="text", name="user-phone", placeholder="(Phone:)")
+									//- strong.user-phone.editable(contenteditable="true") Phone: (555-123-4567)
+									//- input.write.user-phone.user-phone-input.pull-right(type="text", name="user-phone", placeholder="(Phone:)")
 
 					
 				//--------- Dropdown -------------
 				.extra-container
 					.extra.extra-bio
 						h4.extra-header More About Me
-						p#extra-bio.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
-						textarea#user-extra-bio-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
+						p#extra-bio.extra-text.editable(contenteditable="true") Here is some more information
+						textarea#user-extra-bio-input.write(rows="6", name="user-extra-bio", value="EDIT INFO HERE: (max 40 characters)")
 					
 					.extra.extra-skills
 						h4.extra-header Skillset
-						p#extra-skills.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
-						textarea#user-extra-skills-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
-					
+						ul.editable.user-skills.list-unstyled.list-inline
+								li#extra-skill-1.skill.editable(contenteditable="true") JavaScript
+								li#extra-skill-2.skill.editable(contenteditable="true") HTML
+								li#extra-skill-3.skill.editable(contenteditable="true") Coolness
+								li#extra-skill-4.skill.editable(contenteditable="true") Winning
+							
+						p#extra-skills.extra-text.editable(contenteditable="true") Here is some more information
+						//- textarea#user-extra-skills-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
+						input#extra-skill1-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill1", placeholder="JavaScript")
+						input#extra-skill2-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill2", placeholder="JavaScript")
+						input#extra-skill3-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill3", placeholder="JavaScript")
+						input#extra-skill4-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill4", placeholder="JavaScript")
+						
 					.extra.extra-info
 						h4.extra-header Contact Information
-						p#extra-info.extra-text.editable(contenteditable="true") Here is some more information about how awesome I am
-						textarea#user-extra-info-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
+						p#extra-info.extra-text.editable(contenteditable="true") Here is some more information
+						textarea#user-extra-info-input.write(rows="3", name="user-extra-bio", value="EDIT INFO HERE: (max 40 characters)")
 				
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js")

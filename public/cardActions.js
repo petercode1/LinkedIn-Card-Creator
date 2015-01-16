@@ -1,6 +1,13 @@
 $(document).on('ready', function() {
 
 
+	var sendProfile = function() {
+		IN.API.Profile("me").result(function(profiles) {
+
+				console.log(profiles.values[0]);
+		});
+	};
+
 	var edit = function () {
 		$('.editable').hide();
 		$('.write').show();
@@ -33,6 +40,19 @@ $(document).on('ready', function() {
 		var newSkill4 = $('#skill-input-4').val() || skill5;
 		var newSkill5 = $('#skill-input-5').val() || skill5;
 
+
+		var extraSkill1 = $('#extra-skill-1').text();
+		var extraSkill2 = $('#extra-skill-2').text();
+		var extraSkill3 = $('#extra-skill-3').text();
+		var extraSkill4 = $('#extra-skill-4').text();
+		var extraSkill5 = $('#extra-skill-5').text();
+
+		var newExtraSkill1 = $('#extra-skill1-input').val() || extraSkill1;
+		var newExtraSkill2 = $('#extra-skill2-input').val() || extraSkill2;
+		var newExtraSkill3 = $('#extra-skill3-input').val() || extraSkill3;
+		var newExtraSkill4 = $('#extra-skill-input-4').val() || extraSkill5;
+		var newExtraSkill5 = $('#extra-skill-input-5').val() || extraSkill5;
+
 		var phone = $('.user-phone.editable').text();
 		var newPhone = $('.user-phone-input').val() || phone;
 
@@ -40,15 +60,21 @@ $(document).on('ready', function() {
 		var extraBio = $('#extra-bio').text();
 		var newExtraBio = $('#user-extra-bio-input').val() || extraBio;
 		
-		var extraSkills = $('#extra-skills').text();
-		var newExtraSkills = $('#user-extra-skills-input').val() || extraSkills;
+		// var extraSkills = $('#extra-skills').text();
+		// var newExtraSkills = $('#user-extra-skills-input').val() || extraSkills;
 		
 		var extraInfo = $('#extra-info').text();
 		var newExtraInfo = $('#user-extra-info-input').val() || extraInfo;
 
 
-	
+		if (newName.length > 40 || newTitle.length > 40 || newDescription.length > 290) {
+			alert("One or more of your input fields exceeds maximum length\nPlease edit before continuing");
+		}
 
+		if (newExtraBio.length > 40 || newExtraInfo.length > 40) {
+			alert("One or more of your input fields exceeds maximum length\nPlease edit before continuing");
+		}
+	
 
 		var profile = {
 			name: newName,
@@ -62,11 +88,15 @@ $(document).on('ready', function() {
 				extraInfo: newExtraInfo
 			}
 		};
-		console.log(profile);
+// 		// console.log(profile);
 
-
+// $('#skill-1').text = newSkill1;
+// 			$('#skill-2').text = newSkill2;
+// 			$('#skill-3').text = newSkill3;
+// 			$('#skill-4').text = newSkill4;
+// 			$('#skill-5').text = newSkill5;
 		// Update database with any new user input
-		$.post('profile/updateProfile', profile, function() {
+		$.post('profile/updateProfile', {profile: profile}, function() {
 
 			// Once Database is saved, callback updates the card information
 			$('.user-name.editable').text = newName;
@@ -82,7 +112,12 @@ $(document).on('ready', function() {
 			$('.user-phone').text = newPhone;
 
 			$('#extra-bio').text = newExtraBio;
-			$('#extra-skills').text = newExtraSkills;
+			$('#extra-skill-1').text = NewExtraSkill1;
+			$('#extra-skill-2').text = NewExtraSkill2;
+			$('#extra-skill-3').text = NewExtraSkill3;
+			$('#extra-skill-4').text = NewExtraSkill4;
+			$('#extra-skill-5').text = NewExtraSkill5;
+			// $('#extra-skills').text = newExtraSkills;
 			$('#extra-info').text = newExtraInfo;
 
 		});
