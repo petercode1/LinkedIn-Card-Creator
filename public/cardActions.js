@@ -3,22 +3,20 @@ $(document).on('ready', function() {
 
 	var userID = $('#user-bio').attr('userID');
 
-	var sendProfile = function() {
-		IN.API.Profile("me").result(function(profiles) {
-
-				console.log(profiles.values[0]);
-		});
-	};
-
+	
+	// Function shows editable fields
 	var edit = function () {
 		$('.editable').hide();
+		$('.share').hide();
 		$('.noshow').show();
-
 	};
 
+
+	// Function saves information in the database
 	var save = function () {
 
 		$('.editable').show();
+		$('.share').show();
 		$('.noshow').hide();
 
 
@@ -47,7 +45,7 @@ $(document).on('ready', function() {
 		var newSkill1 = $('#skill1-input').val().length > 0 ? $('#skill1-input').val() : skill1;
 		var newSkill2 = $('#skill2-input').val().length > 0 ? $('#skill2-input').val() : skill2;
 		var newSkill3 = $('#skill3-input').val().length > 0 ? $('#skill3-input').val() : skill3;
-		var newSkill4 = $('#skill4-input').val().length > 0 ? $('#skill4-input').val() : skill5;
+		var newSkill4 = $('#skill4-input').val().length > 0 ? $('#skill4-input').val() : skill4;
 		var newSkill5 = $('#skill5-input').val().length > 0 ? $('#skill5-input').val() : skill5;
 
 
@@ -65,6 +63,8 @@ $(document).on('ready', function() {
 		var newExtraConnections = $('#user-extra-connections-input').val().length > 0 ? $('#user-extra-connections-input').val() : extraConnections;
 
 
+
+
 		/* MAKE AND CHANGES TO EXTRA SKILLS*/
 
 		var extraSkill1 = $('#extra-skill-1').text();
@@ -78,7 +78,7 @@ $(document).on('ready', function() {
 		var newExtraSkill4 = $('#extra-skill4-input').val().length > 0 ? $('#extra-skill4-input').val() : extraSkill4;
 
 
-		/* MAKE AND CHANGES TO EXTRA CONTACT*/
+		/* MAKE AND CHANGES TO EXTRA CONTACT */
 		
 		var extraIndustry = $('#extra-info-industry').text();
 		var newExtraIndustry = $('#user-extra-industry-input').val().length > 0 ? $('#user-extra-industry-input').val() : extraIndustry;
@@ -89,6 +89,8 @@ $(document).on('ready', function() {
 
 
 
+		/* CHECK MAX LENGTH OF INPUT FIELDS */
+
 		if (newName.length > 40 || newTitle.length > 40 || newDescription.length > 290) {
 			alert("One or more of your input fields exceeds maximum length\nPlease edit before continuing");
 		}
@@ -97,15 +99,22 @@ $(document).on('ready', function() {
 			alert("One or more of your input fields exceeds maximum length\nPlease edit before continuing");
 		}
 
-		console.log("NAME LENGTH: ", newName.length);
-		console.log("TITLE LENGTH: ", newTitle.length);
-		console.log("DESCRIPTION LENGTH: ", newDescription.length);
-		console.log("EXTRA POSITIONS LENGTH: ", newExtraPosition.length);
-		console.log("EXTRA CONNECTIONS LENGTH: ", newExtraConnections.length);
-		console.log("EXTRA INDUSTRY LENGTH: ", newExtraIndustry.length);
-		console.log("EXTRA LOCATION LENGTH: ", newExtraLocation.length);
+
+
+		// console.log("NAME LENGTH: ", newName.length);
+		// console.log("TITLE LENGTH: ", newTitle.length);
+		// console.log("DESCRIPTION LENGTH: ", newDescription.length);
+		// console.log("EXTRA POSITIONS LENGTH: ", newExtraPosition.length);
+		// console.log("EXTRA CONNECTIONS LENGTH: ", newExtraConnections.length);
+		// console.log("EXTRA INDUSTRY LENGTH: ", newExtraIndustry.length);
+		// console.log("EXTRA LOCATION LENGTH: ", newExtraLocation.length);
 	
 
+
+
+
+
+		// PROFILE OBJECT HOLDS INFORMATION FROM THE CARD BEFORE SAVING
 		var profile = {
 			image: $('.user-picture').attr('src'),
 			name: newName,
@@ -126,43 +135,26 @@ $(document).on('ready', function() {
 			}
 		};
 
+
+
 		var extraBio = profile.extra.extraBio;
 		var extraSkills = profile.extra.extraSkills;
 		var extraContact = profile.extra.extraContact;
 
-// 		// console.log(profile);
 
-// $('#skill-1').text = newSkill1;
-// 			$('#skill-2').text = newSkill2;
-// 			$('#skill-3').text = newSkill3;
-// 			$('#skill-4').text = newSkill4;
-// 			$('#skill-5').text = newSkill5;
-		// Update database with any new user input
+		// POST REQUEST TO SAVE THE PROFILE INFORMATION IN THE DATABASE
+		$.post('/profile/updateProfile', {userID: userID, name: profile.name, title: profile.title, about: profile.about, skill1: profile.skills[0], skill2: profile.skills[1], skill3: profile.skills[2], skill4: profile.skills[3], skill5: profile.skills[4], positions: extraBio.positions, connections: extraBio.connections, extraSkill1: extraSkills[0], extraSkill2: extraSkills[1], extraSkill3: extraSkills[2], extraSkill4: extraSkills[3], industry: extraContact.industry, location: extraContact.location}, function(response, status, jXHR) {
+		
 
-		// $.post('/auth/linkedin', function() {
-		// 	console.log('done');
-		// 	return;
-		// });
-
-		$.post('/profile/updateProfile', {userID: userID, name: profile.name, title: profile.title, about: profile.about, skills: profile.skills, positions: extraBio.positions, connections: extraBio.connections, extraSkills: extraSkills, industry: extraContact.industry, location: extraContact.location}, function(response, status, jXHR) {
-		// $.ajax({
-		// 	type: 'Post',
-		// 	url: 'http://localhost:9092/profile/updateProfile',
-		// 	dataType: 'json',
-		// 	context: [],
-		// 	success: function(data) {
-		// 		alert('success');
-		// 	}
-		// 	});
-		// return false;
-			 // {profile: profile}, function(response, status, jXHR) {
-
-			console.log("profile", profile);
+			// console.log("profile", profile);
 			// console.log("update");
 			// console.log("response", response);
 			// console.log("Status", status);
 
-			// Once Database is saved, callback updates the card information
+			/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+						Once database is saved,
+				callback updates the card information
+			++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 			$('.user-name.editable').text(newName);
 			$('.user-title.editable').text(newTitle);
 			$('.user-description.editable').text(newDescription);
@@ -187,12 +179,22 @@ $(document).on('ready', function() {
 		});
 	};
 
+
+
+
+
+
 	
-	var share = function () {
-		$.get('/card/generatePublic');
-	};
+	// var share = function () {
+	// 	console.log('Share');
+	// 	$.post('/public/' + userID + '/generatePublic', function(response, status, jXHR) {
+	// 		console.log('Status', status);
+	// 		return;
+	// 	});
+	// };
 
 
+	// Funcion determines which dropdown field to toggle
 	var showPopup = function (button, id) {
 
 		var allContent = button.closest('.content-container');
@@ -213,34 +215,42 @@ $(document).on('ready', function() {
 
 
 
+
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++
+				CLICK EVENTS
+++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+	// NAV BUTTON CLICKED
+
 	$('.btn-list button').on('click', function() {
 		var nthis = $(this);
-
 		showPopup(nthis, nthis.attr('id'));
 	});
 
-$('#user-bio').on('click', function() {
-	console.log('Clicked');
 
-		$(this).find('.user-name .editable').text = "Hi";
-	console.log('Username', $(this).find('.user-name.editable').text());
-
-	});
-
+	// EDIT BUTTON CLICKED
 	$('.btn-edit').on('click', function() {
 		edit();
 	});
 
+
+	// SAVE BUTTON CLICKED
 	$('.btn-save').on('click', function() {
 		save();
 	});
 
+
+	// SHARE/PRINT BUTTON CLICKED
 	$('.btn-share').on('click', function() {
-		share();
+		// share();
 	});
 
+
+	// EDITABLE AREA CLICKED
 	$('.editable').on('click', function() {
-		$('.btn-share').hide();
+		$('.share').hide();
 		$('.btn-save').show();
 	});
 

@@ -2,20 +2,9 @@ doctype html
 html(lang='en')
 	head
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+		link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css")
+		link(rel="stylesheet", href="/card.css")
 		meta(charset="utf-8")
-		//- script(type="text/javascript", src="https://platform.linkedin.com/in.js").
-			| api_key: 78vliq35t58zew;
-			| authorize: true;
-			| onLoad: sendProfile;
-		//- script(type="text/javascript")
-			| function getProfileData() {
-			|	IN.API.Profile("me").result(displayProfiles);
-			|	}
-			| function displayProfiles(profiles) {
-			|	member = profiles.values[0];
-			|	console.log("Member", member);
-			|	document.getElementById("profiles").innerHTML = "<p>member</p>"
-			|	}
 		title CardLink
 
 	body
@@ -23,4 +12,6 @@ html(lang='en')
 
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js")
+		script(src="/cardActions.js")
+			
 		

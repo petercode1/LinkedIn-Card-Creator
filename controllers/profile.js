@@ -27,15 +27,11 @@ var profileController = {
 		var randomNum = Math.floor(Math.random() * (10 - 0));
 		var randomAccess = (Math.random());
 
-
-		// var sendToProfile = function(user) {
-		// };
-		// console.log('REQ token', req.accessToken);
 		var linkedin = Linkedin.init(authentObj.accessToken);
 			linkedin.people.me(function (err, liResult) {
 			// console.log('IN Rsult', liResult);
 
-			// var summary = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur vel ab, accusantium sint officiis odit cupiditate minima, doloribus ut eligendi consequuntur consectetur. Praesentium repellat esse placeat reiciendis voluptas error sed!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea temporibus dicta provident vel voluptas enim consequatur incidunt? Ipsa incidunt ipsam, quo. Dolorem, quam! Esse eius iure consectetur ut aliquam minus.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error rerum aliquid reiciendis laudantium fuga similique a impedit voluptatem repellat maiores cum hic vel, eum quasi rem! Eveniet magnam, dolor dicta!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse vel alias modi error distinctio architecto, neque nemo iure aspernatur, placeat dolorum ab veritatis at aperiam, animi, provident temporibus et! Maxime.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis quisquam, libero. Ipsum nisi quaerat ipsam, explicabo unde veniam quo. Id, consectetur in, accusantium maxime officia natus hic consequatur dolorum repudiandae?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias quos sunt eligendi possimus neque vero quaerat exercitationem iure adipisci mollitia error at sapiente, doloribus, earum itaque pariatur culpa, dignissimos accusantium?';
+	
 			var about;
 			if (liResult.summary.length >= 290) {
 				about = "SUMMARY TOO LONG\nPLEASE SHORTEN YOUR SUMMARY HERE:\n" + liResult.summary.substr(0, 230) + '...';
@@ -51,12 +47,6 @@ var profileController = {
 				allSkills.push(skill.skill.name);
 			}
 
-			// var positions = [];
-
-			// for (var j = 0; j < liResult.positions.values.length; j++) {
-			// 	var position = liResult.positions.values[j];
-			// 	positions.push(position.title);
-			// }
 
 
 			console.log("Connections", liResult.numConnections);
@@ -111,14 +101,9 @@ var profileController = {
 
 								else {
 									console.log("NEW USER");
-									// sendToProfile(user);
-									// authentController.signIn({user: user});
-									// indexController.sendToProfile({user: newUser});
-									// console.log("REDIRECT OBJECT", authentObj.res.redirect);
+						
 									authentObj.res.redirect('http://localhost:9092/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
-									// authentObj.res.redirect('http://www.google.com');//, {user: user});
-									// request.post('http://localhost:9092/profile/base/' + newUser.customID, {user: newUser});
-									// return done(err, user);
+								
 									return;
 								}
 							});
@@ -138,14 +123,11 @@ var profileController = {
 								else {
 									// sendToProfile(user);
 									// authentController.signIn({user: user});
-									console.log("USER UPDATED", user);
+									console.log('USER UPDATED');
 									// indexController.sendToProfile({user: user});
 								
 									authentObj.res.redirect('http://localhost:9092/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
-								
-									// request.post('http://localhost:9092/profile/base/' + user.customID, {user: user});
-
-
+					
 									return;
 								}
 							});
@@ -158,7 +140,7 @@ var profileController = {
 	},
 	updateProfile: function (req, res) {
 
-		console.log("Update User", req.body);
+		// console.log("Update User", req.body);
 		User.findOne({customID: req.body.userID}, function(err, user) {
 			if (err) {
 				console.log("Update Error", err);
@@ -178,7 +160,7 @@ var profileController = {
 				user.profile.about = req.body.about;
 
 				user.markModified('skills');
-				user.profile.skills = req.body.skills;
+				user.profile.skills = [req.body.skill1, req.body.skill2, req.body.skill3, req.body.skill4, req.body.skill5];
 
 				user.markModified('positions');
 				user.profile.extra.extraBio.positions = req.body.positions;
@@ -187,7 +169,7 @@ var profileController = {
 				user.profile.extra.extraBio.connections = req.body.connections;
 
 				user.markModified('extraSkills');
-				user.profile.extra.extraSkills = req.body.extraSkills;
+				user.profile.extra.extraSkills = [req.body.extraSkill1, req.body.extraSkill2, req.body.extraSkill3, req.body.extraSkill4];
 
 				user.markModified('industry');
 				user.profile.extra.extraContact.industry = req.body.industry;

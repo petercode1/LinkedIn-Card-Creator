@@ -64,10 +64,11 @@ app.get('/auth/linkedincallback', authentController.requestToken);
 
 
 app.get('/profile/editable/:userID/:customAccess', profileController.createCard);
-app.get('/public/:profile/share', publicController.publicProfile);
 app.get('/auth/getProfile', profileController.getProfile);
 app.post('/profile/updateProfile', profileController.updateProfile);
-app.get('/public/generatePublic', publicController.generatePublic);
+app.post('/public/:userID/generatePublic', publicController.generatePublic);
+app.get('/public/:userID/share', publicController.publicProfile);
+app.get('/public/test', publicController.test);
 
 // Prevent un-signed-in navigation
 app.use(passportConfig.ensureAuthent);
