@@ -26,7 +26,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(flash());
-app.use(session({secret: '5+_)ohl4t+etiejhtlkajdfhu'}));
+app.use(session({secret: 'ajdfhu'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
