@@ -17,7 +17,7 @@ var publicController = require('./controllers/publicController.js');
 
 
 // Connect to database
-mongoose.connect(process.env.MONGOLAB_URL || 'mongodb://localhost/ombud');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ombud');
 
 var app = express();
 app.set('view engine', 'jade');
