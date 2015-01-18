@@ -14,6 +14,8 @@ var authentController = {
 
 	},
 	URLsignIN: function(req, res) {
+
+		// console.log("URLsignIN RES", res.redirect);
 		res.redirect('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=' + keys.consumerKey + '&scope=r_fullprofile%20r_basicprofile&state=ADKaf79uiadfkadfadhf87uahdJDFH&redirect_uri=http://localhost:9092/auth/linkedincallback');
 	},
 	sendToProfile: function(req, res) {
@@ -33,7 +35,9 @@ var authentController = {
 
 			// console.log(accessToken);
 			// res.send(accessToken);
-			profileController.getProfile({user: req.user, accessToken: accessToken});
+			// request.post('http://localhost:9092/auth/getProfile', {accessToken: accessToken});
+
+			profileController.getProfile({user: req.user, accessToken: accessToken, res: res});
 			return;
 		});
 	},
@@ -42,7 +46,7 @@ var authentController = {
 	},
 	passLogin: function(req, res, next) {
 		// console.log('HI');
-		console.log('USER: ', req.user);
+		// console.log('USER: ', req.user);
 			
 	// Linkedin.auth.getAccessToken(res, req.query.code, function(err, results) {
 	// 	if (err) {

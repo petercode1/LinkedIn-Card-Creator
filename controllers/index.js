@@ -51,7 +51,7 @@ var user = {
 
 var indexController = {
 	index: function(req, res) {
-//*/
+/*/
 		res.render('card', {user: user});
 	/*/	
 		res.redirect('/auth/login');

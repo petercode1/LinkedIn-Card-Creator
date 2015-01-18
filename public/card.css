@@ -9,154 +9,59 @@ body {
 
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
-					CONTAINERS
+				HELPER CLASSES
 +++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-.content-container {
-	margin: 10% auto;
-	display: table;
-	min-height: 50em;
-	min-width: 396px;
-}
-
-
-.card-container {
-	background-color: #FFF;
-	position: relative;
-	/*height: 300px;*/
-	max-height: none;
-	min-height: 300px;
-	/*display: inline-block;*/
-
-	max-width: 40em;
-	
-	border: 4px solid #000;
-	border-radius: 2%;
-}
-
-@media screen and (max-width:768px) {
-	.card-container {
-		max-width: none;
-		width: 100%;
-	}
-}
-
-.contact-container {
-	font-size: .8em;
-	border-top: 1px solid #000;
-}
-
-
-.extra-container {
-	clear: both;
-}
-
-
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++
-					CARD CONTENT
-+++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-
-/*------------------ Bio ------------------*/
-
-.bio-text {
-	border-bottom: 2px solid #999;
-	overflow: hidden;
-	padding-left: 1%;
-	margin-left: 2%;
-	margin-top: 1em;
-}
-
-.user-picture {
-	max-height: 110px;
-	border: 3px solid #88D;
-	margin: 3px;
-	float: left;
-}
-
-.user-name {
-	margin-left: 0;
-	margin-right: .20em;
-}
-
-.user-title {
-	margin-left: .25em;
-	margin-right: .20em;
-}
-
-
-
-.user-about {
-	max-height: 110px;
-	width: 100%;
-}
-
-
-
-
-/*_________Edit Section_________*/
-
-
-.card-bio .write {
-	height: 1.5em;
-	padding: .2em;
-	margin-bottom: 2px;
-}
-
-
-
-/*------------------ Body ------------------*/
-
-.card-body {
-	width: 100%;
-	top: -1.5em;
-
-}
-
-@media screen and (max-width: 768px){
-	.card-body {
-		top: 0;
-	}
-
-	.user-about {
-		display: inline-block;
-		margin-bottom: 1em;
-	}
-}
-
-
-
-.user-description-input {
-	width: 100%;
-}
-
-
-
-
-
-
-
-.write {
+/*All hidden fields are initially hidden*/
+.noshow {
 	display: none;
 }
 
 
-
-input.write, textarea.write {
+/*All inputs for editing*/
+input.noshow, textarea.noshow {
 	background-color: #FCFFEE;
 	border-radius: .35em;
 }
 
-.skill {
-	font-size: .8em;
+/*------------------ Buttons ------------------*/
+
+
+.btn-list {
+	height: 100%;
+	margin: 8px auto;
+}
+
+.btn-list li {
+	margin: auto;
+	overflow: hidden;
+	height: 33.333%	;
+	padding: 0.75em 0;
 }
 
 
+@media screen and (max-width:768px) {
+	.btn-list li {
+		display: inline-block;
+		padding: 1px 10%;
+	}
 
+	.btn-list {
+		margin: 1% 0;
+		padding: 0;
+		width: 100%;
+	}
+}
 
+.btn-list button {
+	
+	height: 3.7em;
+	width: 3.7em;
+}
 
-
-
+.btn-edit {
+	float: right;
+}
 
 .btn-save, .btn-share {
 	margin-bottom: 1em;
@@ -171,26 +76,6 @@ input.write, textarea.write {
 .btn-share {
 	background-color: #6699FF;
 }
-
-
-
-.phone {
-	font-style: italic;
-	float: right;
-}
-
-.phone-input {
-	width: 20%;
-
-}
-
-/*_________Edit Section_________*/
-
-.skill-input {
-	width: 20%;
-}
-
-
 
 
 
@@ -232,27 +117,9 @@ input.write, textarea.write {
 }
 
 
-
-
-
-.btn-edit {
-	float: right;
-}
-
-
-
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
 					NAVIGATION
 +++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-
-/*------------------ Buttons ------------------*/
-
-.btn-list button {
-	
-	height: 3.7em;
-	width: 3.7em;
-}
 
 .card-nav {
 	background-color: #779;
@@ -260,65 +127,169 @@ input.write, textarea.write {
 	height: 100%;
 }
 
-
-.btn-list {
-	height: 100%;
-	margin: 8px auto;
-}
-
 @media screen and (max-width:768px) {
 	.card-nav {
 		position: relative;
 		padding: 0;
 	}
-
-	.btn-list {
-		margin: 1% 0;
-		padding: 0;
-	}
 }
 
 
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++
+					CONTAINERS
++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-.btn-list li {
-	margin: auto;
-	overflow: hidden;
-	height: 33.333%	;
-	padding: 0.75em 0;
+/*Contains all content on page*/
+.content-container {
+	margin: 10% auto;
+	display: table;
+	min-height: 50em;
+	min-width: 396px;
 }
 
+
+/*Contains only the visible card*/
+.card-container {
+	background-color: #FFF;
+	position: relative;
+	max-height: none;
+	min-height: 300px;
+
+	width: 40em;
+	
+	border: 4px solid #000;
+	border-radius: 2%;
+}
 
 @media screen and (max-width:768px) {
-	.btn-list li {
-		display: inline-block;
-		padding: 1px 10%;
-	}
-
-	.btn-list {
+	.card-container {
+		max-width: none;
 		width: 100%;
 	}
 }
 
-
-
-
-.card-info {
+/*Contains only the actual data on the visible card*/
+.card-info-container {
 	margin: 0 0 0 7em;
 }
 
 @media screen and (max-width:768px) {
-	
-
-	.card-info {
+	.card-info-container {
 		margin: 0;
+	}
+}
+
+.contact-container {
+	font-size: .8em;
+	border-top: 1px solid #000;
+}
+
+
+/*Contains all the extra information fields*/
+.extra-container {
+	clear: both;
+}
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++
+					CARD CONTENT
++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+/*------------------ Bio ------------------*/
+
+
+
+.bio-text {
+	border-bottom: 2px solid #999;
+	overflow: hidden;
+	padding-left: 1%;
+	margin-left: 2%;
+	margin-top: 1em;
+}
+
+.user-picture {
+	max-height: 110px;
+	border: 3px solid #88D;
+	margin: 3px;
+	float: left;
+}
+
+.user-name {
+	margin-left: 0;
+	margin-right: .20em;
+}
+
+.user-title {
+	margin-left: .25em;
+	margin-right: .20em;
+}
+
+.user-about {
+	max-height: 110px;
+	width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+	.user-about {
+		display: inline-block;
+		margin-bottom: 1em;
 	}
 }
 
 
 
 
+/*_________Edit Section_________*/
+
+.card-bio .noshow {
+	height: 1.5em;
+	padding: .2em;
+	margin-bottom: 2px;
+}
 
 
+.user-description-input {
+	width: 100%;
+}
+
+
+
+
+
+/*------------------ Body ------------------*/
+
+.card-body {
+	width: 100%;
+	top: -1.5em;
+
+}
+
+@media screen and (max-width: 768px){
+	.card-body {
+		top: 0;
+	}
+}
+
+
+.skill {
+	font-size: .8em;
+}
+
+
+/*_________Edit Section_________*/
+
+.skill-input {
+	width: 20%;
+	text-align: center;
+	margin: 1em 0;
+}
+
+
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++
+					EXTRA CONTENT
++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 .extra {
 	display: none;
@@ -331,7 +302,6 @@ input.write, textarea.write {
 
 .extra-bio {
 	background-color: #5cb85c;
-	/*#90EAA0;*/
 }
 
 .extra-skills {
@@ -342,7 +312,10 @@ input.write, textarea.write {
 	background-color: #f0ad4e;
 }
 
-.extra textarea {
-	width: 100%;
-}
 
+
+/*_________Edit Section_________*/
+
+.extra textarea {
+	width: 80%;
+}

@@ -9,9 +9,15 @@ var userSchema = mongoose.Schema({
 		skills: Array,
 		publicURL: String,
 		extra: {
-			extraBio: Object,
+			extraBio: {
+				positions: String,
+				connections: Number
+			},
 			extraSkills: Array,
-			extraContact: Object
+			extraContact: {
+				industry: String,
+				location: String
+			}
 		}
 
 	},
@@ -25,6 +31,11 @@ var userSchema = mongoose.Schema({
 		required: true,
 		unique: true
 	},
+	customAccess: {
+		type: Number,
+		required: true,
+		unique: true
+	}
 	// token: {
 	// 	type: String,
 	// 	required: true,

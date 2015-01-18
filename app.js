@@ -63,7 +63,10 @@ app.get('/auth/linkedincallback', authentController.requestToken);
 /*------------------------- End LinkedIn Login -------------------------*/
 
 
+app.get('/profile/editable/:userID/:customAccess', profileController.createCard);
 app.get('/public/:profile/share', publicController.publicProfile);
+app.get('/auth/getProfile', profileController.getProfile);
+app.post('/profile/updateProfile', profileController.updateProfile);
 app.get('/public/generatePublic', publicController.generatePublic);
 
 // Prevent un-signed-in navigation
@@ -71,11 +74,9 @@ app.use(passportConfig.ensureAuthent);
 
 
 
-app.get('/profile/base/:userID', profileController.createCard);
 
 // app.get('/profile/getInfo', profileController.getInfo);
 
-app.get('/profile/updateProfile', profileController.updateProfile);
 
 var server = app.listen(9092, function() {
 	console.log('Express server listening on port ' + server.address().port);

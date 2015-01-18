@@ -12,8 +12,8 @@ html(lang='en')
 
 			.content-container
 				.text-center
-					button.write.btn.btn-lg.btn-save Save
-					button.btn.btn-lg.btn-share.editable Share/Print
+					button.noshow.btn.btn-lg.btn-save(type="button") Save
+					button.btn.btn-lg.btn-share.editable(type="button") Share/Print
 
 				//----------- Card -------------
 				.card-container.inline-block
@@ -25,18 +25,19 @@ html(lang='en')
 
 					
 					//----------- Bio -------------
-					.card-info.col-sm-10.inline-block.row
-						img.user-picture.circle(src="#{user.pictureUrl}")
-						.card-bio
+					.card-info-container.col-sm-10.col-xs-12.inline-block.row
+						img.user-picture.circle(src="#{user.profile.image}")
+						#user-bio.card-bio(userID = "#{user.customID}")
 							//- .col-sm-3.col-xs-2
 							//- .col-sm-9.col-xs-10
 							.bio-text
-								span.header-lg.user-name.editable(contenteditable="true") #{user.firstName} #{user.lastName} 
-									i(contenteditable="false").btn-edit.fa.fa-pencil-square-o
+								span.header-lg.user-name.editable(contenteditable="true") #{user.profile.name} 
+								i.header-lg(contenteditable="false").btn-edit.fa.fa-pencil-square-o
 								//- .input-group.input-group-lg
-								input.user-name.write.header-lg.user-name-input(type="text", name="user-name", placeholder="#{user.firstName} #{user.lastName}")
-								span.header-md.user-title.editable(contenteditable="true") #{user.headline}
-								input.user-title.write.header-md.user-title-input(type="text", name="user-title", placeholder="#{user.headline}")
+								input.user-name.noshow.header-lg.user-name-input(type="text", name="user-name", placeholder="#{user.profile.name}")
+								br
+								span.header-md.user-title.editable(contenteditable="true") #{user.profile.title}
+								input.user-title.noshow.header-md.user-title-input(type="text", name="user-title", placeholder="#{user.profile.title}")
 							//- .row
 							//- 	.col-sm-6
 									
@@ -47,59 +48,67 @@ html(lang='en')
 						.card-body.inline-block
 							.user-about.text-center
 								span.header-sm About
-								p.user-description.editable(contenteditable="true") Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis temporibus quas ex eligendi repellendus reprehenderit sunt sit laboriosam hic sequi libero, veniam dolore illum provident dignissimos impedit reiciendis. Blanditiis, adipisci.
-								textarea.write.user-description-input(rows="4", name="user-description", style="resize:none", placeholder="EDIT HERE: (max 290 characters)")
+								p.user-description.editable(contenteditable="true") #{user.profile.about}
+								textarea.noshow.user-description-input(rows="4", name="user-description", style="resize:none", placeholder="EDIT HERE: (max 290 characters)")
 							.user-skillset.text-center
 								span.header-sm Skills
 								ul.editable.user-skills.list-unstyled.list-inline
-									li#skill-1.skill.editable(contenteditable="true") JavaScript
-									li#skill-2.skill.editable(contenteditable="true") HTML
-									li#skill-3.skill.editable(contenteditable="true") Coolness
-									li#skill-4.skill.editable(contenteditable="true") Winning
-									li#skill-5.skill.editable(contenteditable="true") Web Stuff
+									li#skill-1.skill.editable(contenteditable="true") #{user.profile.skills[0]}
+									li#skill-2.skill.editable(contenteditable="true") #{user.profile.skills[1]}
+									li#skill-3.skill.editable(contenteditable="true") #{user.profile.skills[2]}
+									li#skill-4.skill.editable(contenteditable="true") #{user.profile.skills[3]}
+									li#skill-5.skill.editable(contenteditable="true") #{user.profile.skills[4]}
 
-								.write
-									input#skill1-input.write.skill.skill-input(type="text", name="user-skill1", placeholder="JavaScript")
-									input#skill2-input.write.skill.skill-input(type="text", name="user-skill2", placeholder="JavaScript")
-									input#skill3-input.write.skill.skill-input(type="text", name="user-skill3", placeholder="JavaScript")
-									input#skill4-input.write.skill.skill-input(type="text", name="user-skill4", placeholder="JavaScript")
-									input#skill5-input.write.skill.skill-input(type="text", name="user-skill5", placeholder="JavaScript")
+								.noshow
+									input#skill1-input.noshow.skill.skill-input(type="text", name="user-skill1", placeholder="#{user.profile.skills[0]}")
+									input#skill2-input.noshow.skill.skill-input(type="text", name="user-skill2", placeholder="#{user.profile.skills[1]}")
+									input#skill3-input.noshow.skill.skill-input(type="text", name="user-skill3", placeholder="#{user.profile.skills[2]}")
+									input#skill4-input.noshow.skill.skill-input(type="text", name="user-skill4", placeholder="#{user.profile.skills[3]}")
+									input#skill5-input.noshow.skill.skill-input(type="text", name="user-skill5", placeholder="#{user.profile.skills[4]}")
 						
 
 							//----------- Contact -------------
 							.contact-container.text-center
 								p LinkedIn: 
-									a(href='#{user.apiStandardProfileRequest.url}') #{user.apiStandardProfileRequest.url} 
+									a#user-linkedin(href='#{user.profile.publicURL}') #{user.profile.publicURL} 
 									//- strong.user-phone.editable(contenteditable="true") Phone: (555-123-4567)
-									//- input.write.user-phone.user-phone-input.pull-right(type="text", name="user-phone", placeholder="(Phone:)")
+									//- input.noshow.user-phone.user-phone-input.pull-right(type="text", name="user-phone", placeholder="(Phone:)")
 
 					
 				//--------- Dropdown -------------
 				.extra-container
 					.extra.extra-bio
 						h4.extra-header More About Me
-						p#extra-bio.extra-text.editable(contenteditable="true") Here is some more information
-						textarea#user-extra-bio-input.write(rows="6", name="user-extra-bio", value="EDIT INFO HERE: (max 40 characters)")
+						h5.extra-header Last Position
+						p#extra-bio-position.extra-text.editable(contenteditable="true") #{user.profile.extra.extraBio.positions}
+						textarea#user-extra-position-input.noshow(rows="3", name="user-extra-bio", style="resize:none", placeholder="EDIT INFO HERE: (max 45 characters)")
+						h5.extra-header Connections
+						p#extra-bio-connections.extra-text.editable(contenteditable="true") #{user.profile.extra.extraBio.connections}
+						textarea#user-extra-connections-input.noshow(rows="3", name="user-extra-bio", style="resize:none", placeholder="EDIT INFO HERE: (max 5 characters)")
 					
 					.extra.extra-skills
 						h4.extra-header Skillset
 						ul.editable.user-skills.list-unstyled.list-inline
-								li#extra-skill-1.skill.editable(contenteditable="true") JavaScript
-								li#extra-skill-2.skill.editable(contenteditable="true") HTML
-								li#extra-skill-3.skill.editable(contenteditable="true") Coolness
-								li#extra-skill-4.skill.editable(contenteditable="true") Winning
+								li#extra-skill-1.skill.editable(contenteditable="true") #{user.profile.extra.extraSkills[0]}
+								li#extra-skill-2.skill.editable(contenteditable="true") #{user.profile.extra.extraSkills[1]}
+								li#extra-skill-3.skill.editable(contenteditable="true") #{user.profile.extra.extraSkills[2]}
+								li#extra-skill-4.skill.editable(contenteditable="true") #{user.profile.extra.extraSkills[3]}
 							
-						p#extra-skills.extra-text.editable(contenteditable="true") Here is some more information
-						//- textarea#user-extra-skills-input.write(rows="6", name="user-extra-bio", value="You can edit this as well#{user.headline}")
-						input#extra-skill1-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill1", placeholder="JavaScript")
-						input#extra-skill2-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill2", placeholder="JavaScript")
-						input#extra-skill3-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill3", placeholder="JavaScript")
-						input#extra-skill4-input.user-extra-skills.write.skill.skill-input(type="text", name="user-skill4", placeholder="JavaScript")
+						//- p#extra-skills.extra-text.editable(contenteditable="true") Here is some more information
+						//- textarea#user-extra-skills-input.noshow(rows="6", name="user-extra-skills", value="You can edit this as well#{user.headline}")
+						input#extra-skill1-input.user-extra-skills.noshow.skill.skill-input(type="text", name="user-skill1", placeholder="#{user.profile.extra.extraSkills[0]}")
+						input#extra-skill2-input.user-extra-skills.noshow.skill.skill-input(type="text", name="user-skill2", placeholder="#{user.profile.extra.extraSkills[1]}")
+						input#extra-skill3-input.user-extra-skills.noshow.skill.skill-input(type="text", name="user-skill3", placeholder="#{user.profile.extra.extraSkills[2]}")
+						input#extra-skill4-input.user-extra-skills.noshow.skill.skill-input(type="text", name="user-skill4", placeholder="#{user.profile.extra.extraSkills[3]}")
 						
 					.extra.extra-info
-						h4.extra-header Contact Information
-						p#extra-info.extra-text.editable(contenteditable="true") Here is some more information
-						textarea#user-extra-info-input.write(rows="3", name="user-extra-bio", value="EDIT INFO HERE: (max 40 characters)")
+						h4.extra-header Information
+						h5.extra-header Industry
+						p#extra-info-industry.extra-text.editable(contenteditable="true") #{user.profile.extra.extraContact.industry}
+						textarea#user-extra-industry-input.noshow(rows="3", name="user-extra-contact", style="resize:none", placeholder="EDIT INFO HERE: (max 20 characters)")
+						h5.extra-header Location
+						p#extra-info-location.extra-text.editable(contenteditable="true") #{user.profile.extra.extraContact.location}
+						textarea#user-extra-location-input.noshow(rows="3", name="user-extra-contact", style="resize:none", placeholder="EDIT INFO HERE: (max 20 characters)")
 				
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js")
 		script(src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js")
