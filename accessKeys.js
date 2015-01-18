@@ -1,8 +1,18 @@
-var keys = require('./private/keys.js');
+if (process.env.NODE_ENV === 'production') {
+	var accessKeys = {
+		consumerKey: process.env.LINKEDIN_KEY,
+		consumerSecret: process.env.LINKEDIN_SECRET
+	};
+}
 
-var accessKeys = {
-	consumerKey: keys.consumerKey,
-	consumerSecret: keys.consumerSecret
-};
+else {
+
+	var keys = require('./private/keys.js');
+
+	var accessKeys = {
+		consumerKey: keys.consumerKey,
+		consumerSecret: keys.consumerSecret
+	};
+}
 
 module.exports = accessKeys;

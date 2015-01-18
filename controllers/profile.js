@@ -3,7 +3,7 @@ var authentController = require('../controllers/authentication.js');
 var keys = require('../accessKeys.js');
 var request = require('request');
 var indexController = require('../controllers/index.js');
-var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://localhost:9092/auth/linkedincallback');
+var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://cardlink.herokuapp.com/auth/linkedincallback');
 
 var profileController = {
 	QgetProfile: function(req, res) {
@@ -102,7 +102,7 @@ var profileController = {
 								else {
 									console.log("NEW USER");
 						
-									authentObj.res.redirect('http://localhost:9092/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+									authentObj.res.redirect('http://cardlink.herokuapp.com/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
 								
 									return;
 								}
@@ -126,7 +126,7 @@ var profileController = {
 									console.log('USER UPDATED');
 									// indexController.sendToProfile({user: user});
 								
-									authentObj.res.redirect('http://localhost:9092/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+									authentObj.res.redirect('http://cardlink.herokuapp.com/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
 					
 									return;
 								}

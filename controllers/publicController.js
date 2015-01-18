@@ -4,7 +4,7 @@ var publicController = {
 
 	generatePublic: function(req, res) {
 		// console.log('Generate Public', res);
-		res.redirect('http://localhost:9092/public/' + req.params.userID + '/share');
+		res.redirect('http://cardlink.herokuapp.com/public/' + req.params.userID + '/share');
 			// '/public/test');
 	},
 	publicProfile: function (req, res) {

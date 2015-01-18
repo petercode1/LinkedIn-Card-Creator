@@ -17,7 +17,7 @@ var publicController = require('./controllers/publicController.js');
 
 
 // Connect to database
-mongoose.connect('mongodb://localhost/ombud');
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/ombud');
 
 var app = express();
 app.set('view engine', 'jade');
@@ -45,20 +45,11 @@ app.get('/auth/sign-in', authentController.signIn);
 /*+++++++++++++++++++++++++++ LinkedIn Login +++++++++++++++++++++++++++*/
 app.get('/auth/linkedin', authentController.URLsignIN);
 
-// 	passport.authenticate(
-// 		'linkedin',
-// 		{scope: ['r_fullprofile', 'r_basicprofile']}
-// 	),
-// 	function(req, res) {
-// 	// This funciton is not called
-// 	}
-// );
+
 
 app.get('/auth/linkedincallback', authentController.requestToken);
 
-// 	passport.authenticate('linkedin', {failureRedirect: '/auth/login'}),
-// 	authentController.passLogin
-// );
+
 
 /*------------------------- End LinkedIn Login -------------------------*/
 
@@ -76,9 +67,8 @@ app.use(passportConfig.ensureAuthent);
 
 
 
-// app.get('/profile/getInfo', profileController.getInfo);
 
-
-var server = app.listen(9092, function() {
+var port = process.env.PORT || 9092;
+var server = app.listen(port, function() {
 	console.log('Express server listening on port ' + server.address().port);
 });

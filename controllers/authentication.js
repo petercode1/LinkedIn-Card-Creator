@@ -4,7 +4,7 @@ var request = require('request');
 var profileController = require('../controllers/profile.js');
 var keys = require('../accessKeys.js');
 
-var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://localhost:9092/auth/linkedincallback');
+var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://cardlink.herokuapp.com/auth/linkedincallback');
 
 
 var authentController = {
@@ -16,7 +16,7 @@ var authentController = {
 	URLsignIN: function(req, res) {
 
 		// console.log("URLsignIN RES", res.redirect);
-		res.redirect('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=' + keys.consumerKey + '&scope=r_fullprofile%20r_basicprofile&state=ADKaf79uiadfkadfadhf87uahdJDFH&redirect_uri=http://localhost:9092/auth/linkedincallback');
+		res.redirect('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=' + keys.consumerKey + '&scope=r_fullprofile%20r_basicprofile&state=ADKaf79uiadfkadfadhf87uahdJDFH&redirect_uri=http://cardlink.herokuapp.com/auth/linkedincallback');
 	},
 	sendToProfile: function(req, res) {
 		res.redirect('/profile/user' + req.user.customID);
@@ -25,18 +25,14 @@ var authentController = {
 
 			// console.log("AUTHENTCONTROLLER REQ", req);
 		// if (!req.params.)
-		// res.redirect('https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=http://localhost:9092/auth/linkedincallback&client_id=' + keys.consumerKey + '&client_secret=' + keys.consumerSecret);
-		// return;
-		request.post('https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=http://localhost:9092/auth/linkedincallback&client_id=' + keys.consumerKey + '&client_secret=' + keys.consumerSecret, function(err, response) {
+
+		request.post('https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=http://cardlink.herokuapp.com/auth/linkedincallback&client_id=' + keys.consumerKey + '&client_secret=' + keys.consumerSecret, function(err, response) {
 			
 			// console.log("AUTHENTCONTROLLER RESPONSE", response);
 
 			var accessToken = JSON.parse(response.body).access_token;
 
-			// console.log(accessToken);
-			// res.send(accessToken);
-			// request.post('http://localhost:9092/auth/getProfile', {accessToken: accessToken});
-
+			
 			profileController.getProfile({user: req.user, accessToken: accessToken, res: res});
 			return;
 		});
