@@ -245,7 +245,6 @@ var profileController = {
 					customAccess: foundUser.customAccess
 				};
 
-				console.log("USER", user);
 				res.render('card', {user: user});
 			}
 		});
