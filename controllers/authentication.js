@@ -62,15 +62,6 @@ var authentController = {
 	// });
 	console.log(req.user);
 		res.redirect('/profile/base/' + req.user.customID);
-	},
-	shareConnection: function(req, res) {
-		var options = {
-			uri: 'https://api.linkedin.com/v1/people/~/mailbox?oauth2_access_token=' + accessToken,
-			headers: {
-				'x-li-format': 'json'
-			},
-			body: JSON.stringify()
-		};
 	}
 };
 

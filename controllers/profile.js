@@ -56,7 +56,7 @@ var profileController = {
 	
 			var about;
 			if (liResult.summary.length >= 290) {
-				about = "SUMMARY TOO LONG\nPLEASE SHORTEN YOUR SUMMARY HERE:\n" + liResult.summary.substr(0, 230) + '...';
+				about = "SUMMARY TOO LONG\nPLEASE SHORTEN YOUR SUMMARY HERE:\n";// + liResult.summary.substr(0, 230) + '...';
 			}
 			else {
 				about = liResult.summary;
@@ -239,6 +239,8 @@ var profileController = {
 		});
 		// console.log(req);
 	},
+
+	// WRITE A POST TO THE GENERAL FEED
 	shareWall: function(req, res) {
 
 		User.findOne({customID: req.body.userID}, function(err, user) {
@@ -268,7 +270,7 @@ var profileController = {
 							// 'submittedImageUrl': '#'
 						},
 						'visibility': {
-							'code': 'anyone' 
+							'code': 'connections-only' 
 						}
 					})
 				};
@@ -278,32 +280,10 @@ var profileController = {
 			}
 		});
 	},
+
+	// SEND AN "EMAIL" TO A CONNECTION
 	shareConnection: function(req, res) {
-
-		// console.log("Recipient", req.body.recip);
-
-/*
-		request.post('https://api.linkedin.com/v1/people/' + req.body.recip + '/mailbox',
-			{
-			'recipients': {
-				'values': [
-					{
-						'person': {
-							'_path': '/people/' + req.body.recip
-						}
-					}
-				]
-			},
-			'subject': req.body.subject,
-			'body': req.body.body
-		}, function(response) {
-			res.send(response);
-		});
-	}
-
-
-*/
-	User.findOne({customID: req.body.userID}, function(err, user) {
+		User.findOne({customID: req.body.userID}, function(err, user) {
 			if (err) {
 				console.log('DATABASE ERROR', err);
 				return;

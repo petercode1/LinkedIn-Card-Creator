@@ -192,27 +192,14 @@ $(document).on('ready', function() {
 
 		$.post('/profile/share/connection', {userID: userID, recip: recip, subject: subject, message: message}, function(response) {
 			console.log('RESPONSE', response);
-			alert('Message Sent');
+			if (response.statusCode < 300) {
+				alert('Message Sent!');
+			}
+			else {
+				alert('We are sorry, something went wrong.\n\n(You may have already posted this)\n\nPlease try again later');
+			}
 			return;
 		});
-		
-		// $.post('https://api.linkedin.com/v1/people/' + recip + '/mailbox',
-		// 	{
-		// 	'recipients': {
-		// 		'values': [
-		// 			{
-		// 				'person': {
-		// 					'_path': '/people/' + recip
-		// 				}
-		// 			}
-		// 		]
-		// 	},
-		// 	'subject': subject,
-		// 	'body': message
-		// 	}, function(response, status, jXHR) {
-		// 	console.log('Status', status);
-		// 	return;
-		// });
 	};
 
 
@@ -270,8 +257,16 @@ $(document).on('ready', function() {
 
 
 	// POST TO LINKEDIN CLICKED
-	$('.connection').on('click', function() {
-		shareTo = $(this).attr('liID');
+	$('.connection').on('mousedown', function() {
+		var nthis = $(this);
+		nthis.siblings('.connection').removeClass('selected');
+		nthis.parents('.btn-group-vertical').siblings('.post-wall').removeClass('selected');
+	});
+
+	$('.connection').on('mouseup', function() {
+		var nthis = $(this);
+		nthis.addClass('selected');
+		shareTo = nthis.attr('liID');
 		console.log("Share To:", shareTo);
 	});
 
@@ -279,34 +274,45 @@ $(document).on('ready', function() {
 
 	// POST TO LINKEDIN CLICKED
 	$('.post-wall').on('click', function() {
-		shareTo = $(this).attr('liID');
-		userLiID = $(this).attr('liID');
+		var nthis = $(this);
+		nthis.addClass('selected');
+		shareTo = nthis.attr('liID');
+		userLiID = nthis.attr('liID');
+		nthis.siblings('.btn-group-vertical').find('.connection').removeClass('selected');
 		console.log("Share To:", shareTo);
 	});
 
 	// POST TO LINKEDIN CLICKED
 	$('#url-post').on('click', function() {
-			var postSubject = $(this).parents('.modal-footer').siblings('.modal-body').find('#url-post-subject').val();
-			var postText = $(this).parents('.modal-footer').siblings('.modal-body').find('#url-post-content').val();
+		var postSubject = $(this).parents('.modal-footer').siblings('.modal-body').find('#url-post-subject').val();
+		var postText = $(this).parents('.modal-footer').siblings('.modal-body').find('#url-post-content').val();
 
 		if (shareTo === '') {
 			alert('Please Choose Recipient');
 			return;
 		}
+
+
+		// Post the the overall feed
 		else if (shareTo === 'wall') {
 
 
 			// $.post('https://api.linkedin.com/v1/people/~/shares',
 
 				
-			$.post('/profile/share/wall', {comment: 'My LinkedIn card via CardLink',
+			$.post('/profile/share/wall', {comment: 'CardLink Card',
 					userID: userID,
 					title: postSubject,
-					description: '\n\n' + postText
+					description: postText
 				}, function (response, status, jXHR) {
 					console.log('RESPONSE', response);
 					// console.log('STATUS', status);
-				alert('Message Sent!');
+				if (response.statusCode < 300) {
+					alert('Message Sent!');
+				}
+				else {
+					alert('We are sorry, something went wrong.\n\n(You may have already posted this)\n\nPlease try again later');
+				}
 			});
 			return;
 		}

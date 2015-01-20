@@ -16,6 +16,12 @@ body {
 	display: none;
 }
 
+/*Identifies when a selection has been made*/
+.selected {
+	background-color: #ACF;
+	border: 3px solid #00A;
+}
+
 
 /*All inputs for editing*/
 input.noshow, textarea.noshow {
@@ -149,7 +155,6 @@ input.noshow, textarea.noshow {
 
 .card-url {
 	font-size: 1.25em;
-	margin-bottom: 2em;
 	max-width: 40em;
 }
 
@@ -159,6 +164,14 @@ input.noshow, textarea.noshow {
 
 /*Contains all content on page*/
 .content-container {
+	margin: auto;
+	display: table;
+	min-height: 50em;
+	min-width: 396px;
+}
+
+/*Addes top margin to public card*/
+.content-container-top {
 	margin: 10% auto;
 	display: table;
 	min-height: 50em;

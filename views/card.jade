@@ -4,9 +4,11 @@ block content
 
 	.content-container
 		.text-center
+			h3 Public Card URL:
+			p.card-url http://localhost:9092/public/#{user.customID}/share
 			button.noshow.btn.btn-lg.btn-save(type="button") Save
 			button#post-linkin.btn.btn-default.btn-lg.btn-post.share.wide(type="button", data-toggle="modal", data-target="#share-modal") Post on LinkedIn
-			a.share(href="/public/#{user.customID}/share"): button.btn.btn-lg.share.btn-share(type="button") Generate URL/Print
+			a.share(href="/public/#{user.customID}/share"): button.btn.btn-lg.share.btn-share(type="button") See Public/Print
 
 		//----------- Card -------------
 		.card-container.inline-block
@@ -80,7 +82,7 @@ block content
 									My LinkedIn Card from CardLink
 								h5.text-center Message
 								textarea#url-post-content.wide(rows="8", style="resize: none").
-									My LinkedIn Card URL:
+									Public URL:
 									http://cardlink.herokuapp.com/public/#{user.customID}/share
 					.modal-footer
 						button.btn.btn-danger(type="button", data-dismiss="modal") Cancel
