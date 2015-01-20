@@ -21,19 +21,30 @@ var publicController = {
 	publicProfile: function (req, res) {
 
 		console.log('PUBLIC PROFILE');
-		User.findOne({customID: req.params.userID}, function(err, user) {
+		User.findOne({customID: req.params.userID}, function(err, foundUser) {
 			if (err) {
 				console.log("Database Error", err);
 				res.redirect('/auth/linkedin');
 				return;
 			}
 
-			if (user) {
-				res.render('publicCard', {user: user});
+			if (!foundUser) {
+				res.send('Sorry, no user found');
 				return;
 			}
-			if (!user) {
-				res.send('Sorry, no user found');
+
+			if (foundUser) {
+				
+				// Grab only what is necessary from DB for rendering
+				var user = {
+					profile: foundUser.profile,
+					connections: foundUser.connections,
+					liID: foundUser.liID,
+					customID: foundUser.customID,
+					customAccess: foundUser.customAccess
+				};
+
+				res.render('publicCard', {user: user});
 				return;
 			}
 		});

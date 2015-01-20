@@ -224,17 +224,28 @@ var profileController = {
 	},
 	createCard: function(req, res) {
 		
-		User.findOne({customID: req.params.userID, customAccess: req.params.customAccess}, function(err, user) {
+		User.findOne({customID: req.params.userID, customAccess: req.params.customAccess}, function(err, foundUser) {
 			if (err) {
 				console.log("Database Error", err);
 				res.redirect('/auth/login');
 				return;
 			}
-			else if (!user) {
+			else if (!foundUser) {
 				res.redirect('/auth/login');
 				return;
 			}
 			else {
+
+				// Grab only what is necessary from DB for rendering
+				var user = {
+					profile: foundUser.profile,
+					connections: foundUser.connections,
+					liID: foundUser.liID,
+					customID: foundUser.customID,
+					customAccess: foundUser.customAccess
+				};
+
+				console.log("USER", user);
 				res.render('card', {user: user});
 			}
 		});
