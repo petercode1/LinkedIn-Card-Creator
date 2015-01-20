@@ -3,6 +3,8 @@ $(document).on('ready', function() {
 
 	var userID = $('#user-bio').attr('userID');
 
+	var shareTo = '';
+
 	
 	// Function shows editable fields
 	var edit = function () {
@@ -185,13 +187,33 @@ $(document).on('ready', function() {
 
 
 	
-	// var share = function () {
-	// 	console.log('Share');
-	// 	$.post('/public/' + userID + '/generatePublic', function(response, status, jXHR) {
-	// 		console.log('Status', status);
-	// 		return;
-	// 	});
-	// };
+	var share = function (recip, subject, message) {
+		console.log('Share');
+
+		$.post('/profile/share/connection', {userID: userID, recip: recip, subject: subject, message: message}, function(response) {
+			console.log('RESPONSE', response);
+			alert('Message Sent');
+			return;
+		});
+		
+		// $.post('https://api.linkedin.com/v1/people/' + recip + '/mailbox',
+		// 	{
+		// 	'recipients': {
+		// 		'values': [
+		// 			{
+		// 				'person': {
+		// 					'_path': '/people/' + recip
+		// 				}
+		// 			}
+		// 		]
+		// 	},
+		// 	'subject': subject,
+		// 	'body': message
+		// 	}, function(response, status, jXHR) {
+		// 	console.log('Status', status);
+		// 	return;
+		// });
+	};
 
 
 	// Funcion determines which dropdown field to toggle
@@ -223,7 +245,6 @@ $(document).on('ready', function() {
 
 
 	// NAV BUTTON CLICKED
-
 	$('.btn-list button').on('click', function() {
 		var nthis = $(this);
 		showPopup(nthis, nthis.attr('id'));
@@ -242,9 +263,58 @@ $(document).on('ready', function() {
 	});
 
 
-	// SHARE/PRINT BUTTON CLICKED
+	// GENERATE URL/PRINT BUTTON CLICKED
 	$('.btn-share').on('click', function() {
 		// share();
+	});
+
+
+	// POST TO LINKEDIN CLICKED
+	$('.connection').on('click', function() {
+		shareTo = $(this).attr('liID');
+		console.log("Share To:", shareTo);
+	});
+
+	var userLiID = '';
+
+	// POST TO LINKEDIN CLICKED
+	$('.post-wall').on('click', function() {
+		shareTo = $(this).attr('liID');
+		userLiID = $(this).attr('liID');
+		console.log("Share To:", shareTo);
+	});
+
+	// POST TO LINKEDIN CLICKED
+	$('#url-post').on('click', function() {
+			var postSubject = $(this).parents('.modal-footer').siblings('.modal-body').find('#url-post-subject').val();
+			var postText = $(this).parents('.modal-footer').siblings('.modal-body').find('#url-post-content').val();
+
+		if (shareTo === '') {
+			alert('Please Choose Recipient');
+			return;
+		}
+		else if (shareTo === 'wall') {
+
+
+			// $.post('https://api.linkedin.com/v1/people/~/shares',
+
+				
+			$.post('/profile/share/wall', {comment: 'My LinkedIn card via CardLink',
+					userID: userID,
+					title: postSubject,
+					description: '\n\n' + postText
+				}, function (response, status, jXHR) {
+					console.log('RESPONSE', response);
+					// console.log('STATUS', status);
+				alert('Message Sent!');
+			});
+			return;
+		}
+		else {
+			
+			console.log('Message Content', postText);
+			share(shareTo, postSubject, postText);
+		}
 	});
 
 

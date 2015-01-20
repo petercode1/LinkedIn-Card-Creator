@@ -5,7 +5,8 @@ block content
 	.content-container
 		.text-center
 			button.noshow.btn.btn-lg.btn-save(type="button") Save
-			a.share(href="/public/#{user.customID}/share"): button.btn.btn-lg.share.btn-share(type="button") Share/Print
+			button#post-linkin.btn.btn-default.btn-lg.btn-post.share.wide(type="button", data-toggle="modal", data-target="#share-modal") Post on LinkedIn
+			a.share(href="/public/#{user.customID}/share"): button.btn.btn-lg.share.btn-share(type="button") Generate URL/Print
 
 		//----------- Card -------------
 		.card-container.inline-block
@@ -57,7 +58,36 @@ block content
 						p LinkedIn: 
 							a#user-linkedin(href='#{user.profile.publicURL}') #{user.profile.publicURL} 
 
-			
+		//--------- Modal -------------
+		#share-modal.modal.fade(tabindex="-1", aria-hidden="true", role="dialog")
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(type="button", data-dismiss="modal", aria-label="Close") X
+						h4.modal-title.text-center Post Message
+					.modal-body
+						.row
+							aside.col-sm-5.share-to-container
+								.friend-list
+									button.btn.btn-success.btn-lg.wide.post-wall(liID="wall", userID="#{user.liID") My profile
+									.btn-group-vertical.wide(role="group")
+										h5.text-center Scroll to Select Connection
+										for connection in user.connections
+											button.connection.btn.btn-default(liID="#{connection.liID}") #{connection.name}
+							.col-sm-7
+								h5.text-center Subject
+								textarea#url-post-subject.wide(rows="1", style="resize: none").
+									My LinkedIn Card from CardLink
+								h5.text-center Message
+								textarea#url-post-content.wide(rows="8", style="resize: none").
+									My LinkedIn Card URL:
+									http://cardlink.herokuapp.com/public/#{user.customID}/share
+					.modal-footer
+						button.btn.btn-danger(type="button", data-dismiss="modal") Cancel
+						button#url-post.btn.btn-post.btn-default(type="button") Post
+
+
+
 		//--------- Dropdown -------------
 		.extra-container
 			.extra.extra-bio

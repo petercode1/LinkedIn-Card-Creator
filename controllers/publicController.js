@@ -1,10 +1,21 @@
 var User = require('../models/schemas/userSchema.js');
 
+
+if (process.env.NODE_ENV === 'production') {
+	var myURL = 'http://cardlink.herokuapp.com';
+}
+
+else {
+	var myURL = 'http://localhost:9092';
+}
+
 var publicController = {
+
+
 
 	generatePublic: function(req, res) {
 		// console.log('Generate Public', res);
-		res.redirect('http://cardlink.herokuapp.com/public/' + req.params.userID + '/share');
+		res.redirect(myURL + '/public/' + req.params.userID + '/share');
 			// '/public/test');
 	},
 	publicProfile: function (req, res) {

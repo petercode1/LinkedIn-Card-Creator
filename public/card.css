@@ -1,4 +1,3 @@
-
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
 				UNIVERSAL ELEMENTS
 +++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -83,7 +82,6 @@ input.noshow, textarea.noshow {
 }
 
 
-
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
 					GROUP STYLES
 +++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -123,6 +121,12 @@ input.noshow, textarea.noshow {
 .centered {
 	margin: auto;
 }
+
+.wide {
+	width: 100%;
+}
+
+
 
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -204,6 +208,11 @@ input.noshow, textarea.noshow {
 	clear: both;
 }
 
+/*Contains the list of connections to share to in the modal*/
+.share-to-container {
+	height: 297px;
+	overflow-y: scroll;
+}
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++
 					CARD CONTENT
@@ -299,6 +308,14 @@ input.noshow, textarea.noshow {
 	margin: 1em 0;
 }
 
+
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++
+						MODAL
++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+.post-wall {
+	/*width: 93%;*/
+}
 
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -4,7 +4,16 @@ var request = require('request');
 var profileController = require('../controllers/profile.js');
 var keys = require('../accessKeys.js');
 
-var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://cardlink.herokuapp.com/auth/linkedincallback');
+
+
+if (process.env.NODE_ENV === 'production') {
+	var myURL = 'http://cardlink.herokuapp.com';
+}
+
+else {
+	var myURL = 'http://localhost:9092';
+}
+var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, myURL + '/auth/linkedincallback');
 
 
 var authentController = {
@@ -16,7 +25,7 @@ var authentController = {
 	URLsignIN: function(req, res) {
 
 		// console.log("URLsignIN RES", res.redirect);
-		res.redirect('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=' + keys.consumerKey + '&scope=r_fullprofile%20r_basicprofile&state=ADKaf79uiadfkadfadhf87uahdJDFH&redirect_uri=http://cardlink.herokuapp.com/auth/linkedincallback');
+		res.redirect('https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=' + keys.consumerKey + '&scope=r_fullprofile%20r_basicprofile%20r_network%20rw_nus%20w_messages&state=ADKaf79uiadfkadfadhf87uahdJDFH&redirect_uri=' + myURL + '/auth/linkedincallback');
 	},
 	sendToProfile: function(req, res) {
 		res.redirect('/profile/user' + req.user.customID);
@@ -26,7 +35,7 @@ var authentController = {
 			// console.log("AUTHENTCONTROLLER REQ", req);
 		// if (!req.params.)
 
-		request.post('https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=http://cardlink.herokuapp.com/auth/linkedincallback&client_id=' + keys.consumerKey + '&client_secret=' + keys.consumerSecret, function(err, response) {
+		request.post('https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=' + req.query.code + '&redirect_uri=' + myURL + '/auth/linkedincallback&client_id=' + keys.consumerKey + '&client_secret=' + keys.consumerSecret, function(err, response) {
 			
 			// console.log("AUTHENTCONTROLLER RESPONSE", response);
 
@@ -53,6 +62,15 @@ var authentController = {
 	// });
 	console.log(req.user);
 		res.redirect('/profile/base/' + req.user.customID);
+	},
+	shareConnection: function(req, res) {
+		var options = {
+			uri: 'https://api.linkedin.com/v1/people/~/mailbox?oauth2_access_token=' + accessToken,
+			headers: {
+				'x-li-format': 'json'
+			},
+			body: JSON.stringify()
+		};
 	}
 };
 

@@ -3,7 +3,15 @@ var authentController = require('../controllers/authentication.js');
 var keys = require('../accessKeys.js');
 var request = require('request');
 var indexController = require('../controllers/index.js');
-var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, 'http://cardlink.herokuapp.com/auth/linkedincallback');
+
+if (process.env.NODE_ENV === 'production') {
+	var myURL = 'http://cardlink.herokuapp.com';
+}
+
+else {
+	var myURL = 'http://localhost:9092';
+}
+var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, myURL + '/auth/linkedincallback');
 
 var profileController = {
 	QgetProfile: function(req, res) {
@@ -29,8 +37,22 @@ var profileController = {
 
 		var linkedin = Linkedin.init(authentObj.accessToken);
 			linkedin.people.me(function (err, liResult) {
-			// console.log('IN Rsult', liResult);
+			console.log('IN Rsult', liResult.connections.values[0].firstName);
 
+			var connectionsArray = [];
+
+			for (var c = 0; c < liResult.connections.values.length; c++) {
+
+				var userConnection = {
+					name: liResult.connections.values[c].firstName + ' ' + liResult.connections.values[c].lastName,
+					liID: liResult.connections.values[c].id
+				};
+
+				// console.log("CONNECTION:", userConnection);
+				connectionsArray.push(userConnection);
+			}
+
+			// console.log("all connections", connectionsArray);
 	
 			var about;
 			if (liResult.summary.length >= 290) {
@@ -87,10 +109,11 @@ var profileController = {
 							// delete liResult._raw;
 							var newUser = new User({
 								profile: profile,
+								connections: connectionsArray,
 								liID: liResult.id,
 								customID: (liResult.lastName + '.' + liResult.firstName + '.' + randomNum),
-								customAccess: randomAccess
-								// token: token
+								customAccess: randomAccess,
+								token: authentObj.accessToken
 							});
 
 							newUser.save(function(err, user) {
@@ -102,7 +125,7 @@ var profileController = {
 								else {
 									console.log("NEW USER");
 						
-									authentObj.res.redirect('http://cardlink.herokuapp.com/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+									authentObj.res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
 								
 									return;
 								}
@@ -113,8 +136,17 @@ var profileController = {
 
 							console.log('USER FOUND');
 							user.customAccess = randomAccess;
-							// user.token = token;
 							user.markModified('customAccess');
+
+							user.profile = profile;
+							user.markModified('profile');
+
+							user.token = authentObj.accessToken;
+							user.markModified('token');
+
+							user.connections = connectionsArray;
+							user.markModified('connections');
+
 							user.save(function(err, user){
 								if (err) {
 									return console.log('Save error', err);
@@ -126,7 +158,7 @@ var profileController = {
 									console.log('USER UPDATED');
 									// indexController.sendToProfile({user: user});
 								
-									authentObj.res.redirect('http://cardlink.herokuapp.com/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+									authentObj.res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
 					
 									return;
 								}
@@ -207,8 +239,106 @@ var profileController = {
 		});
 		// console.log(req);
 	},
-	share: function(req, res) {
-		res.redirect('/profile' + req.user.customID + '/share');
+	shareWall: function(req, res) {
+
+		User.findOne({customID: req.body.userID}, function(err, user) {
+			if (err) {
+				console.log('DATABASE ERROR', err);
+				return;
+			}
+			else if (!user) {
+				console.log('No user found');
+				return;
+			}
+			else {
+				console.log('USER FOUND');
+				var options = {
+					uri: 'https://api.linkedin.com/v1/people/~/shares',
+					headers: {
+						authorization: 'Bearer ' + user.token,
+						'x-li-format': 'json'
+					},
+					body: JSON.stringify({
+
+					'comment': req.body.comment,
+						'content': {
+							'title': req.body.title,
+							'description': req.body.description,
+							'submittedUrl': 'http://cardlink.herokuapp.com',
+							// 'submittedImageUrl': '#'
+						},
+						'visibility': {
+							'code': 'anyone' 
+						}
+					})
+				};
+				request.post(options, function(response, status) {
+					res.send(status);
+				});
+			}
+		});
+	},
+	shareConnection: function(req, res) {
+
+		// console.log("Recipient", req.body.recip);
+
+/*
+		request.post('https://api.linkedin.com/v1/people/' + req.body.recip + '/mailbox',
+			{
+			'recipients': {
+				'values': [
+					{
+						'person': {
+							'_path': '/people/' + req.body.recip
+						}
+					}
+				]
+			},
+			'subject': req.body.subject,
+			'body': req.body.body
+		}, function(response) {
+			res.send(response);
+		});
+	}
+
+
+*/
+	User.findOne({customID: req.body.userID}, function(err, user) {
+			if (err) {
+				console.log('DATABASE ERROR', err);
+				return;
+			}
+			else if (!user) {
+				console.log('No user found');
+				return;
+			}
+			else {
+				console.log('USER FOUND');
+				var options = {
+					uri: 'https://api.linkedin.com/v1/people/~/mailbox',
+					headers: {
+						authorization: 'Bearer ' + user.token,
+						'x-li-format': 'json'
+					},
+					body: JSON.stringify({
+						'recipients': {
+							'values': [
+								{
+									'person': {
+										'_path': '/people/id=' + req.body.recip
+									}
+								}
+							]
+						},
+						'subject': req.body.subject,
+						'body': req.body.message
+					})
+				};
+				request.post(options, function(response, status) {
+					res.send(status);
+				});
+			}
+		});
 	}
 };
 

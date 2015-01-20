@@ -21,6 +21,11 @@ var userSchema = mongoose.Schema({
 		}
 
 	},
+	connections: {
+		type: Array,
+		required: false,
+		unique: false
+	},
 	liID: {
 		type: String,
 		required: true,
@@ -35,12 +40,12 @@ var userSchema = mongoose.Schema({
 		type: Number,
 		required: true,
 		unique: true
+	},
+	token: {
+		type: String,
+		required: true,
+		unique: true
 	}
-	// token: {
-	// 	type: String,
-	// 	required: true,
-	// 	unique: true
-	// }
 });
 
 module.exports = mongoose.model('user', userSchema);
