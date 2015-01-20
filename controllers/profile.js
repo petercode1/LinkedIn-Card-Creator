@@ -214,7 +214,8 @@ var profileController = {
 						console.log("Save error", err);
 					}
 					else {
-						res.send({message: 'save success'});
+						res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+						// res.send({message: 'save success'});
 						return;
 					}
 				});

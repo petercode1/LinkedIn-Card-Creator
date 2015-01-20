@@ -158,25 +158,46 @@ $(document).on('ready', function() {
 				callback updates the card information
 			++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 			$('.user-name.editable').text(newName);
+			$('.user-name-input').attr('placeholder', newName);
+
 			$('.user-title.editable').text(newTitle);
-			$('.user-description.editable').text(newDescription);
+			$('.user-description-input').attr('placeholder', newDescription);
 
-			$('#skill-1').text(newSkill1);
-			$('#skill-2').text(newSkill2);
-			$('#skill-3').text(newSkill3);
-			$('#skill-4').text(newSkill4);
-			$('#skill-5').text(newSkill5);
+			$('#skill-1, #p-skill-1').text(newSkill1);
+			$('#skill-2, #p-skill-2').text(newSkill2);
+			$('#skill-3, #p-skill-3').text(newSkill3);
+			$('#skill-4, #p-skill-4').text(newSkill4);
+			$('#skill-5, #p-skill-5').text(newSkill5);
 
-			$('#extra-bio-positions').text(newExtraPosition);
-			$('#extra-bio-connections').text(newExtraConnections);
+			$('#skill1-input').attr('placeholder', newSkill1);
+			$('#skill2-input').attr('placeholder', newSkill2);
+			$('#skill3-input').attr('placeholder', newSkill3);
+			$('#skill4-input').attr('placeholder', newSkill4);
+			$('#skill5-input').attr('placeholder', newSkill5);
 
-			$('#extra-skill-1').text(newExtraSkill1);
-			$('#extra-skill-2').text(newExtraSkill2);
-			$('#extra-skill-3').text(newExtraSkill3);
-			$('#extra-skill-4').text(newExtraSkill4);
+			$('#extra-bio-positions, #p-extra-bio-positions').text(newExtraPosition);
+			$('#user-extra-position-input').attr('placeholder', newExtraPosition);
 
-			$('#extra-info-industry').text(newExtraIndustry);
-			$('#extra-info-location').text(newExtraLocation);
+			$('#extra-bio-connections, #p-extra-bio-connections').text(newExtraConnections);
+			$('#user-extra-connections-input').attr('placeholder', newExtraConnections);
+
+			$('#extra-skill-1, #p-extra-skill-1').text(newExtraSkill1);
+			$('#extra-skill-2, #p-extra-skill-2').text(newExtraSkill2);
+			$('#extra-skill-3, #p-extra-skill-3').text(newExtraSkill3);
+			$('#extra-skill-4, #p-extra-skill-4').text(newExtraSkill4);
+
+			$('#extra-skill1-input').attr('placeholder', newExtraSkill1);
+			$('#extra-skill2-input').attr('placeholder', newExtraSkill2);
+			$('#extra-skill3-input').attr('placeholder', newExtraSkill3);
+			$('#extra-skill4-input').attr('placeholder', newExtraSkill4);
+
+			$('#extra-info-industry, #p-extra-info-industry').text(newExtraIndustry);
+			$('#user-extra-industry-input').attr('placeholder', newExtraIndustry);
+
+			$('#extra-info-location, #p-extra-info-location').text(newExtraLocation);
+			$('#user-extra-location-input').attr('placeholder', newExtraLocation);
+
+			$('input, textarea').val('');
 
 		});
 	};
@@ -204,11 +225,11 @@ $(document).on('ready', function() {
 
 
 	// Funcion determines which dropdown field to toggle
-	var showPopup = function (button, id) {
+	var showPopup = function (button, extraToggle) {
 
 		var allContent = button.closest('.content-container');
 
-		switch (id) {
+		switch (extraToggle) {
 
 			case 'see-bio':
 				allContent.find('.extra-bio').slideToggle(500);
@@ -234,7 +255,7 @@ $(document).on('ready', function() {
 	// NAV BUTTON CLICKED
 	$('.btn-list button').on('click', function() {
 		var nthis = $(this);
-		showPopup(nthis, nthis.attr('id'));
+		showPopup(nthis, nthis.attr('extra-toggle'));
 	});
 
 
