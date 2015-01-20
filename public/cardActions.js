@@ -209,10 +209,10 @@ $(document).on('ready', function() {
 
 	
 	var share = function (recip, subject, message) {
-		console.log('Share');
+		// console.log('Share');
 
 		$.post('/profile/share/connection', {userID: userID, recip: recip, subject: subject, message: message}, function(response) {
-			console.log('RESPONSE', response);
+			// console.log('RESPONSE', response);
 			if (response.statusCode < 300) {
 				alert('Message Sent!');
 			}
@@ -288,7 +288,7 @@ $(document).on('ready', function() {
 		var nthis = $(this);
 		nthis.addClass('selected');
 		shareTo = nthis.attr('liID');
-		console.log("Share To:", shareTo);
+		// console.log("Share To:", shareTo);
 	});
 
 	var userLiID = '';
@@ -300,7 +300,7 @@ $(document).on('ready', function() {
 		shareTo = nthis.attr('liID');
 		userLiID = nthis.attr('liID');
 		nthis.siblings('.btn-group-vertical').find('.connection').removeClass('selected');
-		console.log("Share To:", shareTo);
+		// console.log("Share To:", shareTo);
 	});
 
 	// POST TO LINKEDIN CLICKED
@@ -326,7 +326,7 @@ $(document).on('ready', function() {
 					title: postSubject,
 					description: postText
 				}, function (response, status, jXHR) {
-					console.log('RESPONSE', response);
+					// console.log('RESPONSE', response);
 					// console.log('STATUS', status);
 				if (response.statusCode < 300) {
 					alert('Message Sent!');
@@ -339,7 +339,7 @@ $(document).on('ready', function() {
 		}
 		else {
 			
-			console.log('Message Content', postText);
+			// console.log('Message Content', postText);
 			share(shareTo, postSubject, postText);
 		}
 	});

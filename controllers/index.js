@@ -10,7 +10,7 @@ var indexController = {
 		res.render('login');
 	},
   sendToProfile: function(req, res) {
-    console.log("INDEXCONTROLLER REQ", req);
+    // console.log("INDEXCONTROLLER REQ", req);
     res.redirect('/profile/user' + req.user.customID);
   },
 };

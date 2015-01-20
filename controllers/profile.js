@@ -37,7 +37,7 @@ var profileController = {
 
 		var linkedin = Linkedin.init(authentObj.accessToken);
 			linkedin.people.me(function (err, liResult) {
-			console.log('IN Rsult', liResult.connections.values[0].firstName);
+			// console.log('IN Rsult', liResult.connections.values[0].firstName);
 
 			var connectionsArray = [];
 
@@ -71,7 +71,7 @@ var profileController = {
 
 
 
-			console.log("Connections", liResult.numConnections);
+			// console.log("Connections", liResult.numConnections);
 			var profile = {
 				image: liResult.pictureUrl,
 				name: liResult.formattedName,

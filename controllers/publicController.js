@@ -39,7 +39,7 @@ var publicController = {
 		});
 	},
 	test: function(req, res) {
-		console.log('Test');
+		// console.log('Test');
 		res.send('Hello');
 	}
 };

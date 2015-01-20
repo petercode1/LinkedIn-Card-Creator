@@ -19,7 +19,7 @@ var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, m
 var authentController = {
 	signIn: function(req, res) {
 		// passport.use
-		console.log('HI');
+		// console.log('HI');
 
 	},
 	URLsignIN: function(req, res) {
@@ -60,7 +60,7 @@ var authentController = {
 
 	// 	console.log( 'Linked In Results', results);
 	// });
-	console.log(req.user);
+	// console.log(req.user);
 		res.redirect('/profile/base/' + req.user.customID);
 	}
 };

@@ -26,10 +26,6 @@ passport.use(new LinkedInStrategy({
 },
 function(token, tokenSecret, profile, done){
 
-	console.log("Token", token);
-	console.log("DONE", done);
-	console.log("Secret Token", secretToken);
-	console.log("Authen Profile", profile);
 
 	var randomNum = Math.floor(Math.random() * (10 - 0));
 
