@@ -164,7 +164,7 @@ $(document).on('ready', function() {
 			$('.user-title-input').attr('placeholder', newTitle);
 
 			$('.user-description.editable').text(newDescription);
-			$('.user-description-input').attr('placeholder', newDescription);
+			$('.user-description-input').attr('placeholder', 'EDIT HERE: (max 290 characters)');
 
 			$('#skill-1, #p-skill-1').text(newSkill1);
 			$('#skill-2, #p-skill-2').text(newSkill2);
@@ -179,10 +179,10 @@ $(document).on('ready', function() {
 			$('#skill5-input').attr('placeholder', newSkill5);
 
 			$('#extra-bio-positions, #p-extra-bio-positions').text(newExtraPosition);
-			$('#user-extra-position-input').attr('placeholder', newExtraPosition);
+			$('#user-extra-position-input').attr('placeholder', 'EDIT INFO HERE: (max 45 characters)');
 
 			$('#extra-bio-connections, #p-extra-bio-connections').text(newExtraConnections);
-			$('#user-extra-connections-input').attr('placeholder', newExtraConnections);
+			$('#user-extra-connections-input').attr('placeholder', 'EDIT INFO HERE: (max 5 characters)');
 
 			$('#extra-skill-1, #p-extra-skill-1').text(newExtraSkill1);
 			$('#extra-skill-2, #p-extra-skill-2').text(newExtraSkill2);
@@ -195,10 +195,10 @@ $(document).on('ready', function() {
 			$('#extra-skill4-input').attr('placeholder', newExtraSkill4);
 
 			$('#extra-info-industry, #p-extra-info-industry').text(newExtraIndustry);
-			$('#user-extra-industry-input').attr('placeholder', newExtraIndustry);
+			$('#user-extra-industry-input').attr('placeholder', 'EDIT INFO HERE: (max 20 characters)');
 
 			$('#extra-info-location, #p-extra-info-location').text(newExtraLocation);
-			$('#user-extra-location-input').attr('placeholder', newExtraLocation);
+			$('#user-extra-location-input').attr('placeholder', 'EDIT INFO HERE: (max 20 characters)');
 
 			$('.edit-input, .edit-textarea').val('');
 
