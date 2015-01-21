@@ -161,6 +161,9 @@ $(document).on('ready', function() {
 			$('.user-name-input').attr('placeholder', newName);
 
 			$('.user-title.editable').text(newTitle);
+			$('.user-title-input').attr('placeholder', newTitle);
+
+			$('.user-description.editable').text(newDescription);
 			$('.user-description-input').attr('placeholder', newDescription);
 
 			$('#skill-1, #p-skill-1').text(newSkill1);
