@@ -197,7 +197,7 @@ $(document).on('ready', function() {
 			$('#extra-info-location, #p-extra-info-location').text(newExtraLocation);
 			$('#user-extra-location-input').attr('placeholder', newExtraLocation);
 
-			$('input, textarea').val('');
+			$('.edit-input, .edit-textarea').val('');
 
 		});
 	};
