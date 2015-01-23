@@ -19,7 +19,7 @@ var publicController = require('./controllers/publicController.js');
 
 // Connect to database MONGOLAB_URI
 if (process.env.NODE_ENV === 'production') {
-mongoose.connect(process.env.MONGOLAB_URI);
+	mongoose.connect(process.env.MONGOLAB_URI);
 }
 
 else {
@@ -50,7 +50,7 @@ app.get('/auth/sign-in', authentController.signIn);
 
 
 /*+++++++++++++++++++++++++++ LinkedIn Login +++++++++++++++++++++++++++*/
-app.get('/auth/linkedin', authentController.URLsignIN);
+app.get('/auth/linkedin/?:code', authentController.URLsignIN);
 
 
 
