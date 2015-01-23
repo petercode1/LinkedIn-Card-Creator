@@ -1,5 +1,5 @@
 var express = require('express');
-var hhtp = require('http');
+var https = require('https');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -9,7 +9,6 @@ var cookieParser = require('cookie-parser');
 
 // Config
 var passportConfig = require('./config/passportConfig.js');
-
 // Controllers
 var authentController = require('./controllers/authentication.js');
 var indexController = require('./controllers/index.js');
@@ -54,7 +53,7 @@ app.get('/auth/linkedin', authentController.URLsignIN);
 
 
 
-app.get('/auth/linkedincallback/?:code', authentController.requestToken);
+app.get('/auth/linkedincallback/?', authentController.requestToken);
 
 
 
@@ -79,6 +78,6 @@ app.use(passportConfig.ensureAuthent);
 
 
 var port = process.env.PORT || 9092;
-var server = app.listen(port, function() {
-	console.log('Express server listening on port ' + server.address().port);
-});
+app.createServer(options, app).listen(port);// var server = app.listen(port, function() {
+// 	console.log('Express server listening on port ' + server.address().port);
+// });

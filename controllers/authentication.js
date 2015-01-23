@@ -7,7 +7,7 @@ var keys = require('../accessKeys.js');
 
 
 if (process.env.NODE_ENV === 'production') {
-	var myURL = 'http://cardlink.herokuapp.com';
+	var myURL = 'https://cardlink.herokuapp.com';
 }
 
 else {
