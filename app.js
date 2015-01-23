@@ -16,8 +16,14 @@ var profileController = require('./controllers/profile.js');
 var publicController = require('./controllers/publicController.js');
 
 
-// Connect to database
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ombud');
+// Connect to database MONGOLAB_URI
+if (procress.env.NODE_ENV === 'production') {
+mongoose.connect(process.env.MONGOLAB_URI);
+}
+
+else {
+	mongoose.connect('mongodb://localhost/ombud');
+}
 
 var app = express();
 app.set('view engine', 'jade');
