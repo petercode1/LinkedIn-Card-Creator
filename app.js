@@ -50,11 +50,11 @@ app.get('/auth/sign-in', authentController.signIn);
 
 
 /*+++++++++++++++++++++++++++ LinkedIn Login +++++++++++++++++++++++++++*/
-app.get('/auth/linkedin/?:code', authentController.URLsignIN);
+app.get('/auth/linkedin', authentController.URLsignIN);
 
 
 
-app.get('/auth/linkedincallback', authentController.requestToken);
+app.get('/auth/linkedincallback/?:code', authentController.requestToken);
 
 
 
