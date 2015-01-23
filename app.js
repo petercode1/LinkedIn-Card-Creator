@@ -75,8 +75,8 @@ app.use(passportConfig.ensureAuthent);
 
 
 
-/*/
 var port = process.env.PORT || 9092;
+/*/
 app.createServer(options, app).listen(port);
 
 /*/
