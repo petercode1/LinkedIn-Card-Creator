@@ -33,7 +33,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 // app.use(cookieParser());
 // app.use(flash());
-app.use(session({secret: 'ajdfhu', resave: true}));
+app.use(session({secret: 'aa3424-df1jdfhu', resave: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 

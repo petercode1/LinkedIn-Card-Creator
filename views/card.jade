@@ -5,7 +5,7 @@ block content
 	.content-container
 		.text-center
 			h3 Public Card URL:
-			p.card-url http://localhost:9092/public/#{user.customID}/share
+			p.card-url http://cardlink.herokuapp.com/public/#{user.customID}/share
 			button.noshow.btn.btn-lg.btn-save(type="button") Save
 			button#post-linkin.btn.btn-default.btn-lg.btn-post.share.wide(type="button", data-toggle="modal", data-target="#share-modal") Post on LinkedIn
 			a.share(href="/public/#{user.customID}/share"): button.btn.btn-lg.share.btn-share(type="button") See Public/Print
