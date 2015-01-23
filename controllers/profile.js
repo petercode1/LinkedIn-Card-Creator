@@ -5,7 +5,7 @@ var request = require('request');
 var indexController = require('../controllers/index.js');
 
 if (process.env.NODE_ENV === 'production') {
-	var myURL = 'https://cardlink.herokuapp.com';
+	var myURL = 'http://cardlink.herokuapp.com';
 }
 
 else {

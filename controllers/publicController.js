@@ -2,7 +2,7 @@ var User = require('../models/schemas/userSchema.js');
 
 
 if (process.env.NODE_ENV === 'production') {
-	var myURL = 'https://cardlink.herokuapp.com';
+	var myURL = 'http://cardlink.herokuapp.com';
 }
 
 else {

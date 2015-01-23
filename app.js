@@ -1,5 +1,5 @@
 var express = require('express');
-var https = require('https');
+// var https = require('https');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -75,9 +75,12 @@ app.use(passportConfig.ensureAuthent);
 
 
 
-
-
+/*/
 var port = process.env.PORT || 9092;
-app.createServer(options, app).listen(port);// var server = app.listen(port, function() {
-// 	console.log('Express server listening on port ' + server.address().port);
-// });
+app.createServer(options, app).listen(port);
+
+/*/
+var server = app.listen(port, function() {
+	console.log('Express server listening on port ' + server.address().port);
+});
+//*/
