@@ -17,7 +17,7 @@ var publicController = require('./controllers/publicController.js');
 
 
 // Connect to database MONGOLAB_URI
-if (procress.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
 mongoose.connect(process.env.MONGOLAB_URI);
 }
 
