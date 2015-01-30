@@ -2,7 +2,7 @@ var express = require('express');
 // var https = require('https');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var passport = require('passport');
+// var passport = require('passport');
 // var session = require('express-session');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
@@ -32,9 +32,9 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 // app.use(cookieParser());
 // app.use(flash());
-app.use(session({secret: 'aa3424-df1jdfhu', resave: false}));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({secret: 'aa3424-df1jdfhu', resave: false}));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 
