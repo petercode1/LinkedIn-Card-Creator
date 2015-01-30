@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var session = require('express-session');
+// var session = require('express-session');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 

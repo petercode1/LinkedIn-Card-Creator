@@ -18,7 +18,7 @@
   },
   "name": "linkedin-card",
   "version": "1.0.0",
-  "main": "",
+  "main": "./app.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
