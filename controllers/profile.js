@@ -1,36 +1,30 @@
+/*+++++++++++++++++++++++++++++++ EXPORTED MODULE +++++++++++++++++++++++++++++++*/
 var User = require('../models/schemas/userSchema.js');
 var authentController = require('../controllers/authentication.js');
 var keys = require('../accessKeys.js');
 var request = require('request');
 var indexController = require('../controllers/index.js');
 
+/*++++ ENVIRONMENT CHECK ++++*/
 if (process.env.NODE_ENV === 'production') {
 	var myURL = 'http://cardlink.herokuapp.com';
-}
-
-else {
+} else {
 	var myURL = 'http://localhost:9092';
 }
+
 var Linkedin = require('node-linkedin')(keys.consumerKey, keys.consumerSecret, myURL + '/auth/linkedincallback');
 
+
+/*+++++++++++++++++++++++++++++++ EXPORTED MODULE +++++++++++++++++++++++++++++++*/
 var profileController = {
-	QgetProfile: function(req, res) {
-		var userInfo = {
-			profile: req.user.profile
-		};
-		// console.log('userInfo', userInfo);
-		// console.log('base user', req.user);
-		
-		res.render('profile', {user: userInfo});
-	},
+
+	/* FUNCTION: checks database for existing users
+		creates new user if mathing does not exist
+		END: Redirect to custom URL for editing card
+	*/
 	getProfile: function(authentObj) {
 
-		// console.log('REQUEST', req);
 		// console.log("PROFILECONTROLLER RES", res);
-
-		// var IN = require('https://platform.linkedin.com/in.js');
-		// console.log('User Token', req.user.token);
-		// console.log('User Profile', req.user);
 
 		var randomNum = Math.floor(Math.random() * (10 - 0));
 		var randomAccess = (Math.random());
@@ -69,9 +63,14 @@ var profileController = {
 				allSkills.push(skill.skill.name);
 			}
 
-
-
 			// console.log("Connections", liResult.numConnections);
+			
+
+
+
+			/* OBJECT: temporary object for structuring profile
+				for user in database
+			*/
 			var profile = {
 				image: liResult.pictureUrl,
 				name: liResult.formattedName,
@@ -94,85 +93,88 @@ var profileController = {
 
 			// console.log(profile);
 			// console.log("EXTRA SKILLS", profile.extra.extraSkills);
-			// async.auto({
-				// checkDB: function() {
-					User.findOne({liID: liResult.id}, function(err, user) {
+			
 
+			/*=======================================================
+								DATABASE CHECK
+			=======================================================*/
+			User.findOne({liID: liResult.id}, function(err, user) {
+
+				if (err) {
+					console.log ('Login Error', err);
+					return;
+				}
+
+				// No existing user was found
+				if (!user) {
+					var newUser = new User({
+						profile: profile,
+						connections: connectionsArray,
+						liID: liResult.id,
+						customID: (liResult.lastName + '.' + liResult.firstName + '.' + randomNum),
+						customAccess: randomAccess,
+						token: authentObj.accessToken
+					});
+
+					/*************** SAVE DATABASE (NEW USER) ***************/
+					newUser.save(function(err, user) {
 						if (err) {
-							console.log ('Login Error', err);
+							console.log('New Save error', err);
+							// return;
+						} else {
+							console.log("NEW USER");
+				
+							authentObj.res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+						
 							return;
 						}
+					});
+				} 
 
-						// Create a new User
-						if (!user) {
-							// delete liResult._json;
-							// delete liResult._raw;
-							var newUser = new User({
-								profile: profile,
-								connections: connectionsArray,
-								liID: liResult.id,
-								customID: (liResult.lastName + '.' + liResult.firstName + '.' + randomNum),
-								customAccess: randomAccess,
-								token: authentObj.accessToken
-							});
+				// Existing user was found
+				else {
 
-							newUser.save(function(err, user) {
-								if (err) {
-									console.log('New Save error', err);
-									// return;
-								}
+					console.log('USER FOUND');
+					user.customAccess = randomAccess;
+					user.markModified('customAccess');
 
-								else {
-									console.log("NEW USER");
+					user.profile = profile;
+					user.markModified('profile');
+
+					user.token = authentObj.accessToken;
+					user.markModified('token');
+
+					user.connections = connectionsArray;
+					user.markModified('connections');
+
+
+					/************* SAVE DATABASE (UPDATE USER) *************/
+					user.save(function(err, user){
+						if (err) {
+							return console.log('Save error', err);
+						} else {
+							// console.log('USER UPDATED');
 						
-									authentObj.res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
-								
-									return;
-								}
-							});
-						}
-
-						else {
-
-							console.log('USER FOUND');
-							user.customAccess = randomAccess;
-							user.markModified('customAccess');
-
-							user.profile = profile;
-							user.markModified('profile');
-
-							user.token = authentObj.accessToken;
-							user.markModified('token');
-
-							user.connections = connectionsArray;
-							user.markModified('connections');
-
-							user.save(function(err, user){
-								if (err) {
-									return console.log('Save error', err);
-								}
-
-								else {
-									// sendToProfile(user);
-									// authentController.signIn({user: user});
-									console.log('USER UPDATED');
-									// indexController.sendToProfile({user: user});
-								
-									authentObj.res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
-					
-									return;
-								}
-							});
+							authentObj.res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);
+							return;
 						}
 					});
-			// }
-			// }
-
+				}
+			});
 		});
 	},
+
+	/* FUNCTION: checks database for existing users
+		updates any information in the database
+		END: Redirect to custom URL for editing card
+	*/
 	updateProfile: function (req, res) {
 
 		// console.log("Update User", req.body);
+
+		/*=======================================================
+								DATABASE CHECK
+		=======================================================*/
 		User.findOne({customID: req.body.userID}, function(err, user) {
 			if (err) {
 				console.log("Update Error", err);
@@ -181,6 +183,9 @@ var profileController = {
 			if (!user) {
 				console.log("NO USER FOUND");
 			}
+
+
+			// Update information in the database
 			else {
 				user.markModified('name');
 				user.profile.name = req.body.name;
@@ -209,12 +214,14 @@ var profileController = {
 				user.markModified('location');
 				user.profile.extra.extraContact.location = req.body.location;
 
+
+				/************* SAVE DATABASE (UPDATE USER) *************/
 				user.save(function(err, user) {
 					if (err) {
 						console.log("Save error", err);
 					}
 					else {
-						res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);//, {user: user});
+						res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);
 						// res.send({message: 'save success'});
 						return;
 					}
@@ -222,8 +229,16 @@ var profileController = {
 			}
 		});
 	},
+
+	/* FUNCTION: checks database for existing users
+		updates any information in the database
+		END: Renders editable card
+	*/
 	createCard: function(req, res) {
 		
+		/*=======================================================
+								DATABASE CHECK
+		=======================================================*/
 		User.findOne({customID: req.params.userID, customAccess: req.params.customAccess}, function(err, foundUser) {
 			if (err) {
 				console.log("Database Error", err);
@@ -248,12 +263,17 @@ var profileController = {
 				res.render('card', {user: user});
 			}
 		});
-		// console.log(req);
 	},
 
-	// WRITE A POST TO THE GENERAL FEED
+	/* FUNCTION: allows user to write a post
+		that is visible on LinkedIn wall
+		END: Returns HTTP status from LinkedIn
+	*/
 	shareWall: function(req, res) {
 
+		/*=======================================================
+								DATABASE CHECK
+		=======================================================*/
 		User.findOne({customID: req.body.userID}, function(err, user) {
 			if (err) {
 				console.log('DATABASE ERROR', err);
@@ -292,8 +312,15 @@ var profileController = {
 		});
 	},
 
-	// SEND AN "EMAIL" TO A CONNECTION
+	/* FUNCTION: allows user to write a message
+		to an existing LinkedIn connection
+		END: Returns HTTP status from LinkedIn
+	*/
 	shareConnection: function(req, res) {
+
+		/*=======================================================
+								DATABASE CHECK
+		=======================================================*/
 		User.findOne({customID: req.body.userID}, function(err, user) {
 			if (err) {
 				console.log('DATABASE ERROR', err);

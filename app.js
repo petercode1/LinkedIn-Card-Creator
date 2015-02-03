@@ -1,29 +1,37 @@
+process.env.NODE_ENV = 'development';
+
+
+/*++++++++++++++++++++++++++++++++ EXTERNAL MODULES ++++++++++++++++++++++++++++++++*/
+
 var express = require('express');
-// var https = require('https');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-// var passport = require('passport');
-// var session = require('express-session');
-var flash = require('connect-flash');
-var cookieParser = require('cookie-parser');
+// var flash = require('connect-flash');
+// var cookieParser = require('cookie-parser');
 
-// Config
-var passportConfig = require('./config/passportConfig.js');
-// Controllers
+
+
+/*+++++++++++++++++++++++++++++++++++ CONTROLLERS +++++++++++++++++++++++++++++++++++*/
+
 var authentController = require('./controllers/authentication.js');
 var indexController = require('./controllers/index.js');
 var profileController = require('./controllers/profile.js');
 var publicController = require('./controllers/publicController.js');
 
 
+
+/*++++++++++++++++++++++++++++++++++++ DATABASE ++++++++++++++++++++++++++++++++++++*/
+
 // Connect to database MONGOLAB_URI
 if (process.env.NODE_ENV === 'production') {
 	mongoose.connect(process.env.MONGOLAB_URI);
-}
-
-else {
+} else {
 	mongoose.connect('mongodb://localhost/ombud');
 }
+
+
+
+/*++++++++++++++++++++++++++++++++++++ MIDDLEWEAR ++++++++++++++++++++++++++++++++++++*/
 
 var app = express();
 app.set('view engine', 'jade');
@@ -33,47 +41,48 @@ app.use(bodyParser.urlencoded({extended: false}));
 // app.use(cookieParser());
 // app.use(flash());
 // app.use(session({secret: 'aa3424-df1jdfhu', resave: false}));
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 
 
+
+/*++++++++++++++++++++++++++++++++++++++ ROUTES ++++++++++++++++++++++++++++++++++++++*/
 
 // DIRECT THE USER TO THE LOGIN PAGE
 app.get('/', indexController.index);
-
 app.get('/auth/login', indexController.login);
 
-app.get('/auth/sign-in', authentController.signIn);
 
 
+/*___________________________ LinkedIn Login ___________________________*/
 
-/*+++++++++++++++++++++++++++ LinkedIn Login +++++++++++++++++++++++++++*/
+// Make API call for authorization
 app.get('/auth/linkedin', authentController.URLsignIN);
 
-
-
+// Redirected URL called by LinkedIn
 app.get('/auth/linkedincallback/?', authentController.requestToken);
-
-
-
 /*------------------------- End LinkedIn Login -------------------------*/
 
 
+
+/*___________________________ Editable Profile ___________________________*/
 app.get('/profile/editable/:userID/:customAccess', profileController.createCard);
 app.get('/auth/getProfile', profileController.getProfile);
 app.post('/profile/updateProfile', profileController.updateProfile);
 app.post('/profile/share/wall', profileController.shareWall);
 app.post('/profile/share/connection', profileController.shareConnection);
+/*------------------------- End Editable Profile -------------------------*/
 
+
+
+/*___________________________ Public Profile ___________________________*/
 app.post('/public/:userID/generatePublic', publicController.generatePublic);
 app.get('/public/:userID/share', publicController.publicProfile);
-app.get('/public/test', publicController.test);
-
-// Prevent un-signed-in navigation
-app.use(passportConfig.ensureAuthent);
+/*------------------------- End Public Profile -------------------------*/
 
 
+
+
+/*++++++++++++++++++++++++++++++++++++++ SERVER ++++++++++++++++++++++++++++++++++++++*/
 
 var port = process.env.PORT || 9092;
 /*/

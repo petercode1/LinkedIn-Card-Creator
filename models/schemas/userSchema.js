@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
+
+	// All personal information seen on card
 	profile: {
 		image: String,
 		name: String,
@@ -21,11 +23,15 @@ var userSchema = mongoose.Schema({
 		}
 
 	},
+
+	// All user connections
 	connections: {
 		type: Array,
 		required: false,
 		unique: false
 	},
+
+	/*---- Database values ----*/
 	liID: {
 		type: String,
 		required: true,
