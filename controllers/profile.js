@@ -120,7 +120,7 @@ var profileController = {
 					newUser.save(function(err, user) {
 						if (err) {
 							console.log('New Save error', err);
-							// return;
+							return;
 						} else {
 							console.log("NEW USER");
 				
@@ -151,7 +151,8 @@ var profileController = {
 					/************* SAVE DATABASE (UPDATE USER) *************/
 					user.save(function(err, user){
 						if (err) {
-							return console.log('Save error', err);
+							console.log('Save error', err);
+							return;
 						} else {
 							// console.log('USER UPDATED');
 						
@@ -219,6 +220,7 @@ var profileController = {
 				user.save(function(err, user) {
 					if (err) {
 						console.log("Save error", err);
+						return;
 					}
 					else {
 						res.redirect(myURL + '/profile/editable/' + user.customID + '/' + user.customAccess);
